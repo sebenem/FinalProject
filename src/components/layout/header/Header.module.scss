@@ -1,0 +1,473 @@
+.container{
+    width: 100%;
+    min-height: 12vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  flex-direction: column;
+    .conTop{
+        width: 100%;
+        display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 1rem;
+    .logo{
+        width: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 3px;
+        cursor: pointer;
+        h2{
+            padding: 3px;
+            background-color: black;
+            color: white;
+            border-radius:9px;
+        }
+    }
+       .navbar{
+        width: 40%;
+        ul{
+            list-style-type: none;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            li,a{
+                text-decoration: none;
+                font-size: 17px;
+                color: gray;
+                &:hover{
+                    color: black;
+                    text-decoration: 3px underline solid red;
+                }
+            }
+        }
+    }
+    // .search{
+    //     width: 30%;
+    //       background-color: var(--site-search-initial-bg-color, #f3f3f6);
+    //     padding: 8px;
+    //     display: flex;
+    //     justify-content: center;
+    //     gap: 6px;
+    //     border-radius: 20px;
+    //     .icoSearch{
+    //         font-size: 30px;
+    //         padding: 2px;
+    //         border-radius: 50px;
+    //     }
+    //     input{
+    //         width: 70%;
+    //         padding: 4px;
+    //         border: none;
+    //         background-color: transparent;
+    //     }
+    // }
+    .basket{
+        width: 12%;
+        display: flex;
+        gap: 1rem;
+        img{
+            width:12%;
+        }
+        svg{
+            font-size: 20px;
+            color:#f3f3f6;
+            &:hover{
+                color: red;
+            }
+        }
+    }
+    .login{
+        width: 16%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        button{
+            padding: 12px;
+            background-color: #f3f3f6;
+            border: 1px solid pink;
+            border-radius: 20px;
+            cursor: pointer;
+        
+            &:hover{
+                background-color: rgba(255, 0, 0, 0.584);
+                color: white;
+            }
+        }
+     
+    }
+       .menu{
+            width: 12%;
+            text-align: center;
+            display: none;
+            justify-content: center;
+            .burger{
+                font-size: 23px;
+                cursor: pointer;
+                color: gray;
+                &:hover{
+                    color: black;
+                            }
+            }
+        }
+       .list{
+        width: 20%;
+        display: none;
+        flex-direction: column;
+        ul{
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            li,a{
+                text-decoration: none;
+                font-size: 17px;
+                color: gray;
+                &:hover{
+                    color: black;
+                    text-decoration: 2px underline solid red;
+                }
+            }
+        }
+       }
+    }
+  
+}
+
+@media screen and (min-width:300px) and (max-width:576px) {
+.container{
+    width: 100%;
+   height: auto;
+    .conTop{
+        width: 100%;
+      
+    .logo{
+        width: 47%;
+        
+        h2{
+            
+            font-size: 17px;
+        }
+        h3{
+            font-size: 17px;
+        }
+    }
+       .navbar{
+        width: 100%;
+        display: none;
+      
+    }
+    // .search{
+    //   display: none;
+    // }
+    .basket{
+        width: 20%;
+        display: flex;
+        gap: 1rem;
+        img{
+            width:20%;
+        }
+      
+    }
+    .login{
+       display: none;
+     
+    }
+       .menu{
+            width: 12%;
+            display: flex;
+            .burger{
+                font-size: 25px;
+               
+            }
+        }
+      .bala{
+       
+         .list{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+       margin-left: 1rem;
+       
+        ul{
+          
+            gap: 6px;
+            li,a{
+                font-size: 17px;
+                
+            }
+        }
+           button{
+            padding: 12px;
+            background-color: #f3f3f6;
+            border: 1px solid pink;
+            border-radius: 20px;
+            cursor: pointer;
+            width:50%;
+        
+            &:hover{
+                background-color: rgba(255, 0, 0, 0.584);
+                color: white;
+            }
+        }
+       }
+     
+      }
+      
+    }
+  
+}    
+}
+
+@media screen and (min-width:576px) and (max-width:768px) {
+.container{
+    width: 100%;
+   height: auto;
+    .conTop{
+        width: 100%;
+      
+    .logo{
+        width: 47%;
+        
+        h2{
+            
+            font-size: 20px;
+        }
+        h3{
+            font-size: 20px;
+        }
+    }
+        .navbar{
+        width: 100%;
+        display: none;
+      
+    }
+    // .search{
+    //   display: none;
+    // }
+      .basket{
+        width: 20%;
+        display: flex;
+        gap: 1rem;
+        img{
+            width:17%;
+        }
+      
+    }
+    .login{
+       display: none;
+     
+    }
+       .menu{
+            width: 12%;
+            display: flex;
+            .burger{
+                font-size: 23px;
+               
+            }
+        }
+      .bala{
+       
+         .list{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+       margin-left: 1rem;
+        ul{
+          
+            gap: 6px;
+            li,a{
+                font-size: 17px;
+                
+            }
+        }
+           button{
+            padding: 12px;
+            background-color: #f3f3f6;
+            border: 1px solid pink;
+            border-radius: 20px;
+            cursor: pointer;
+            width:50%;
+        
+            &:hover{
+                background-color: rgba(255, 0, 0, 0.584);
+                color: white;
+            }
+        }
+       }
+      }
+      
+    }
+  
+}    
+}
+
+@media screen and (min-width:768px) and (max-width:992px) {
+.container{
+    width: 100%;
+   height: auto;
+    .conTop{
+        width: 100%;
+      justify-content: space-around;
+    .logo{
+        width: 30%;
+        
+        h2{
+            
+            font-size: 20px;
+        }
+        h3{
+            font-size: 20px;
+        }
+    }
+        .navbar{
+        width: 100%;
+        display: none;
+      
+    }
+    // .search{
+    //   display: none;
+    // }
+      .basket{
+        width: 20%;
+        display: flex;
+        gap: 1rem;
+        img{
+            width:15%;
+        }
+      
+    }
+    .login{
+       display: none;
+     
+    }
+       .menu{
+            width: 12%;
+            display: flex;
+            .burger{
+                font-size: 23px;
+               
+            }
+        }
+      .bala{
+       
+         .list{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+       margin-left: 1rem;
+        ul{
+          
+            gap: 6px;
+            li,a{
+                font-size: 17px;
+                
+            }
+        }
+           button{
+            padding: 12px;
+            background-color: #f3f3f6;
+            border: 1px solid pink;
+            border-radius: 20px;
+            cursor: pointer;
+            width:50%;
+        
+            &:hover{
+                background-color: rgba(255, 0, 0, 0.584);
+                color: white;
+            }
+        }
+       }
+      }
+      
+    }
+   
+}    
+}
+
+@media screen and (min-width:992px) and (max-width:1024px) {
+.container{
+    width: 100%;
+   height: auto;
+    .conTop{
+        width: 100%;
+      justify-content: space-around;
+    .logo{
+        width: 30%;
+        
+        h2{
+            
+            font-size: 20px;
+        }
+        h3{
+            font-size: 20px;
+        }
+    }
+        .navbar{
+        width: 100%;
+        display: none;
+      
+    }
+    // .search{
+    //   display: none;
+    // }
+      .basket{
+        width: 20%;
+        display: flex;
+        gap: 1rem;
+        img{
+            width:12%;
+        }
+       
+    }
+    .login{
+       display: none;
+     
+    }
+       .menu{
+            width: 12%;
+            display: flex;
+            .burger{
+                font-size: 23px;
+               
+            }
+        }
+      .bala{
+       
+         .list{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+       margin-left: 1rem;
+        ul{
+          
+            gap: 6px;
+            li,a{
+                font-size: 17px;
+                
+            }
+        }
+           button{
+            padding: 12px;
+            background-color: #f3f3f6;
+            border: 1px solid pink;
+            border-radius: 20px;
+            cursor: pointer;
+            width:50%;
+        
+            &:hover{
+                background-color: rgba(255, 0, 0, 0.584);
+                color: white;
+            }
+        }
+       }
+      }
+      
+    }
+ 
+}    
+}

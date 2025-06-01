@@ -1,0 +1,72 @@
+import React from 'react'
+import style from './Header.module.scss'
+import { RxHamburgerMenu } from "react-icons/rx";
+import Drawer from 'react-modern-drawer'
+import 'react-modern-drawer/dist/index.css'
+const Header = () => {
+
+      const [isOpen, setIsOpen] = React.useState(false)
+    const toggleDrawer = () => {
+        setIsOpen((prevState) => !prevState)
+    }
+
+    
+
+  return (
+    <div className={style.container}>
+      <div className={style.conTop}>
+        <div className={style.logo}>
+<h2>St</h2>
+<h3>Adobe Stock</h3>
+        </div>
+       <div className={style.navbar}>
+          <ul>
+           <li><a href="/">Home</a></li>
+            <li><a href="">Photos</a></li>
+            <li><a href="">Illustrations</a></li>
+            <li><a href="">3D</a></li>
+            <li><a href="">Videos</a></li>
+            <li><a href="">Templates </a></li>
+          </ul>
+        </div>
+        <div className={style.basket}>
+         <img src="/images/gps_13897298.png" alt="Cart" /> 
+<img src="/images/shopping-cart.png" alt="Cart" />
+        </div>
+        <div className={style.login}>
+          <button>Login</button>
+          <button>Sign up</button>
+        </div>
+        
+        <div className={style.menu} onClick={toggleDrawer}>
+<RxHamburgerMenu className={style.burger}/>
+
+        </div>
+           <Drawer
+                open={isOpen}
+                onClose={toggleDrawer}
+                direction='right'
+                className={style.bala}
+            >
+                  <div className={style.list}>
+             <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="">Photos</a></li>
+            <li><a href="">Illustrations</a></li>
+            <li><a href="">3D</a></li>
+            <li><a href="">Videos</a></li>
+            <li><a href="">Templates </a></li>
+          </ul>
+          <button>Login</button>
+          <button>Sign up</button>
+          
+        </div>
+            </Drawer>
+     
+      </div>
+    
+    </div>
+  )
+}
+
+export default Header
