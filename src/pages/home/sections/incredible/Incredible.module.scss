@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  min-height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+background-image:linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.3)), url(https://slp-statics.astockcdn.net/static_assets/staging/25spring/US_homepage/Spring25_Footer_1157195895.jpg?width=1555&format=webp);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  .text {
+    width: 70%;
+    text-align: center;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+    h2 {
+      font-size: 34px;
+      line-height: 20px;
+      margin-bottom: 24px;
+    }
+
+    p {
+      font-size: 17px;
+    }
+  }
+}
