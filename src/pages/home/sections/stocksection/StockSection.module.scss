@@ -1,0 +1,40 @@
+.container{
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .image{
+        width: 40%;
+        img{
+            max-width: 100%;
+        }
+    }
+    .text{
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
+        h2{
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 29px;
+        }
+        span{
+            font-size: 16px;
+            color: gray;
+            line-height: 19px;
+        }
+        button{
+            padding: 8px;
+            border: none;
+            border-radius: 20px;
+            background-color: blue;
+            color: white;
+            width: 25%;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 600;
+        }
+    }
+}

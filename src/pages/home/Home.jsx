@@ -3,6 +3,7 @@ import Layout from '../../components/layout/Layout'
 import Hero from './sections/hero/Hero'
 import TrySection from './sections/trysection/TrySection'
 import CollectionsSection from './sections/collectionssection/CollectionsSection'
+import StockSection from './sections/stocksection/StockSection'
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
      <Hero/>   
    <TrySection/>
    <CollectionsSection/>
+   <StockSection/>
     </Layout>
     </>
   
