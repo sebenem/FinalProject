@@ -3,8 +3,10 @@ import style from './Header.module.scss'
 import { RxHamburgerMenu } from "react-icons/rx";
 import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
+import { useNavigate } from 'react-router-dom';
 const Header = () => {
 
+  const navigate = useNavigate()
       const [isOpen, setIsOpen] = React.useState(false)
     const toggleDrawer = () => {
         setIsOpen((prevState) => !prevState)
@@ -34,7 +36,7 @@ const Header = () => {
 <img src="/images/shopping-cart.png" alt="Cart" />
         </div>
         <div className={style.login}>
-          <button>Login</button>
+          <button onClick={()=> navigate('/login')}>Login</button>
           <button>Sign up</button>
         </div>
         
