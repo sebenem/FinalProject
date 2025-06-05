@@ -37,7 +37,7 @@ const Header = () => {
         </div>
         <div className={style.login}>
           <button onClick={()=> navigate('/login')}>Login</button>
-          <button>Sign up</button>
+          <button onClick={()=>navigate('/signup')}>Sign up</button>
         </div>
         
         <div className={style.menu} onClick={toggleDrawer}>

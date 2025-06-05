@@ -40,7 +40,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1.5rem;
 
     h2 {
       font-size: 26px;
@@ -62,17 +62,24 @@
       }
     }
 
-    input {
+    .form {
       width: 100%;
-      padding: 12px 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-      transition: border-color 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
 
-      &:focus {
-        outline: none;
-        border-color: #0073e6;
+      input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+        transition: border-color 0.2s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #0073e6;
+        }
       }
     }
 
@@ -83,7 +90,7 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
 
       span {
         font-size: 16px;
@@ -120,60 +127,69 @@
 }
 
 @media screen and (min-width:300px) and (max-width:576px) {
-      .login {
+     .signup {
     padding: 2rem 1.5rem;
   }
 
-  .batn {
-    flex-direction: column;
-    align-items: stretch;
+  .form {
+    .batn {
+      flex-direction: column;
+      align-items: stretch;
 
-    button {
-      width: 100%;
+      button {
+        width: 100%;
+      }
     }
-  }
+  } 
 }
+
 @media screen and (min-width:576px) and (max-width:768px) {
-      .login {
+     .signup {
     padding: 2rem 1.5rem;
   }
 
-  .batn {
-    flex-direction: column;
-    align-items: stretch;
+  .form {
+    .batn {
+      flex-direction: column;
+      align-items: stretch;
 
-    button {
-      width: 100%;
+      button {
+        width: 100%;
+      }
     }
-  }
+  } 
 }
 
 @media screen and (min-width:768px) and (max-width:992px) {
-      .login {
+     .signup {
     padding: 2rem 1.5rem;
   }
 
-  .batn {
-    flex-direction: column;
-    align-items: stretch;
+  .form {
+    .batn {
+      flex-direction: column;
+      align-items: stretch;
 
-    button {
-      width: 70%;
+      button {
+        width: 100%;
+      }
     }
-  }
+  } 
 }
 
 @media screen and (min-width:992px) and (max-width:1024px) {
-      .login {
+     .signup {
     padding: 2rem 1.5rem;
   }
 
-  .batn {
-    flex-direction: column;
-    align-items: stretch;
+  .form {
+    .batn {
+      flex-direction: column;
+      align-items: stretch;
 
-    button {
-      width: 80%;
+      button {
+        width: 100%;
+      }
     }
-  }
+  } 
 }

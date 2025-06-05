@@ -11,11 +11,11 @@ const Login = () => {
         </div>
         <div className={style.login}>
             <h2>Sign in</h2>
-            <p>New user? <a href=""> Create an account</a></p>
+            <p>New user? <a href="" onClick={()=>navigate('/signup')}> Create an account</a></p>
             <input type="email" placeholder='Email' />
             <input type="password" placeholder='Password' />
             <div className={style.batn}>
-                <span><a href="">Qeydiyyatdan keç</a></span>
+                <span><a href="" onClick={()=>navigate('/signup')}>Qeydiyyatdan keç</a></span>
                 <button>Continue</button>
             </div>
         </div>
