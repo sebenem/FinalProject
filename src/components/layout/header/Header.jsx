@@ -27,7 +27,7 @@ const Header = () => {
             <li><a href="/illustra">Illustrations</a></li>
             <li><a href="/3d">3D</a></li>
             <li><a href="">Videos</a></li>
-            <li><a href="">Templates </a></li>
+            <li><a href="/templates">Templates </a></li>
           </ul>
         </div>
         <div className={style.basket}>
@@ -55,7 +55,7 @@ const Header = () => {
             <li><a href="/illustra">Illustrations</a></li>
             <li><a href="/3d">3D</a></li>
             <li><a href="">Videos</a></li>
-            <li><a href="">Templates </a></li>
+            <li><a href="/templates">Templates </a></li>
           </ul>
           <button>Login</button>
           <button>Sign up</button>
