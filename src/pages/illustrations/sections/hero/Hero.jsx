@@ -7,7 +7,7 @@ const Hero = () => {
       <div className={style.text}>
         <h2>Discover royalty-free stock illustrations</h2>
        <div className={style.search}>
-          <input type="text" placeholder='What are you looking for?' />
+          <input type="text" placeholder='Search all illustrations' />
 <FcSearch className={style.icoSearch} />
         </div>
       </div>

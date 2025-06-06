@@ -1,0 +1,26 @@
+.container{
+    width: 100%;
+    min-height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(https://slp-statics.astockcdn.net/static_assets/staging/25Illustrations/Banner_781827785.jpg?width=1555);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    .text{
+        width: 70%;
+        text-align: center;
+        color: white;
+        h1{
+            font-size: 30px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            margin-bottom: 1rem;
+        }
+        p{
+            font-size: 16.8px;
+          
+
+        }
+    }
+}

@@ -24,7 +24,6 @@ const Header = () => {
        <div className={style.navbar}>
           <ul>
            <li><a href="/">Home</a></li>
-            <li><a href="">Photos</a></li>
             <li><a href="/illustra">Illustrations</a></li>
             <li><a href="">3D</a></li>
             <li><a href="">Videos</a></li>
@@ -53,8 +52,7 @@ const Header = () => {
                   <div className={style.list}>
              <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="">Photos</a></li>
-            <li><a href="">Illustrations</a></li>
+            <li><a href="/illustra">Illustrations</a></li>
             <li><a href="">3D</a></li>
             <li><a href="">Videos</a></li>
             <li><a href="">Templates </a></li>
