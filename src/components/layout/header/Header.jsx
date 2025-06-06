@@ -25,7 +25,7 @@ const Header = () => {
           <ul>
            <li><a href="/">Home</a></li>
             <li><a href="/illustra">Illustrations</a></li>
-            <li><a href="">3D</a></li>
+            <li><a href="/3d">3D</a></li>
             <li><a href="">Videos</a></li>
             <li><a href="">Templates </a></li>
           </ul>
@@ -53,7 +53,7 @@ const Header = () => {
              <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/illustra">Illustrations</a></li>
-            <li><a href="">3D</a></li>
+            <li><a href="/3d">3D</a></li>
             <li><a href="">Videos</a></li>
             <li><a href="">Templates </a></li>
           </ul>

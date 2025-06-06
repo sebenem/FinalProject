@@ -1,0 +1,51 @@
+.container{
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+align-items: center;
+gap: 8px;
+padding: 4rem;
+background-color: #d8d8d8b2;
+p{
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+}
+h2{
+    font-size: 22px;
+    color: gray;
+    font-weight: 300;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.xett{
+    width: 30%;
+    border-bottom: 1px solid gray;
+}
+.carts{
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+    .text{
+        width: 40%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px;
+        span{
+            font-size: 18px;
+            color: gray;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+    }
+    .image{
+        width: 50%;
+        overflow: hidden;
+        img{
+            max-width: 100%;
+        }
+    }
+}
+}

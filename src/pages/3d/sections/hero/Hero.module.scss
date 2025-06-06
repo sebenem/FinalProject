@@ -1,0 +1,44 @@
+.container{
+    width: 100%;
+    min-height: 44vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(https://stock.adobe.com/v1/pics/3D/6dcaf15b02cf92c9d1b5e3a8870cf29609f903cc.3d-hero.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    .text{
+        width: 70%;
+        text-align: center;
+        color: white;
+        
+        h2{
+            font-size: 33px;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+         .search {
+            margin: 0 auto;
+      width: 30%;
+      background-color: var(--site-search-initial-bg-color, #f3f3f6);
+      padding: 8px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      border-radius: 20px;
+      .icoSearch {
+        font-size: 30px;
+        padding: 2px;
+        border-radius: 50px;
+      }
+      input {
+        width: 70%;
+        padding: 4px;
+        border: none;
+        background-color: transparent;
+      }
+    }
+    }
+}
