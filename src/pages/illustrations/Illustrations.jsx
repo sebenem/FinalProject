@@ -12,8 +12,8 @@ const Illustrations = () => {
     <Hero/>
     <Discover/>
     <Free/>
+       <ProductsSection/>
     <Stunning/>
-    <ProductsSection/>
    </Layout>
    </>
   )
