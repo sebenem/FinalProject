@@ -4,6 +4,7 @@ import Hero from './sections/hero/Hero'
 import Discover from './sections/discover/Discover'
 import Free from './sections/free/Free'
 import Stunning from './sections/stunning/Stunning'
+import ProductsSection from './sections/products/ProductsSection'
 const Illustrations = () => {
   return (
    <>
@@ -12,6 +13,7 @@ const Illustrations = () => {
     <Discover/>
     <Free/>
     <Stunning/>
+    <ProductsSection/>
    </Layout>
    </>
   )

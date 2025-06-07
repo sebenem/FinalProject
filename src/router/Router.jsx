@@ -6,6 +6,7 @@ import SignUp from '../pages/signup/SignUp'
 import Illustrations from '../pages/illustrations/Illustrations'
 import Dpages from '../pages/3d/Dpages'
 import Templates from '../pages/templates/Templates'
+import AdminPanel from '../pages/adminpanel/AdminPanel'
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
       <Route path='/illustra' element={<Illustrations/>} />
       <Route path='/3d' element={<Dpages/>} />
           <Route path='/templates' element={<Templates/>} />
+           <Route path='/admin' element={<AdminPanel/>} />
     </Routes>
     </BrowserRouter>
   )

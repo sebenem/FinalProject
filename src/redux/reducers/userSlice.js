@@ -50,12 +50,12 @@ export const getUser = createAsyncThunk('user/getUser', async (_, { rejectWithVa
 
 // ======================= SLICE =======================
 
-const userSlice = createSlice({
+ export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        user: JSON.parse(localStorage.getItem('user')) || null,
-        loading: false,
-        error: null,
+            user: JSON.parse(localStorage.getItem('user')) || null,
+            loading: false,
+            error: null,
     },
     reducers: {
         loadUserFromStorage: (state) => {

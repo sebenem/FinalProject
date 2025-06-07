@@ -1,91 +1,68 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Get basket
-export const getBasketThunk = createAsyncThunk('api/getbasket', async () => {
-  const res = await axios.get('http://localhost:5008/basket');
-  return res.data;
+// GET: Kategoriya siyahısını gətir
+export const getCategoryThunk = createAsyncThunk('api/getCategory', async () => {
+    const res = await axios.get('http://localhost:5008/category');
+    return res.data;
 });
 
-// Delete item
-export const deleteBasketThunk = createAsyncThunk('products/deletebasket', async (id) => {
-  await axios.delete(`http://localhost:5008/basket/${id}`);
-  return id;
+// POST: Yeni kategoriya əlavə et
+export const postCategoryThunk = createAsyncThunk('api/postCategory', async (data) => {
+    const res = await axios.post('http://localhost:5008/category', data);
+    return res.data;
 });
 
-// Update quantity
-export const updateBasketThunk = createAsyncThunk('update/basket', async (product) => {
-  const res = await axios.put(`http://localhost:5008/basket/${product._id}`, product);
-  return res.data;
+// DELETE: Kategoriya sil
+export const deleteCategoryThunk = createAsyncThunk('api/deleteCategory', async (id) => {
+    await axios.delete(`http://localhost:5008/category/${id}`);
+    return id;
 });
 
-// Add item
-export const postBasketThunk = createAsyncThunk('post/basket', async (data) => {
-  const res = await axios.post('http://localhost:5008/basket', data);
-  return res.data;
+// Slice
+export const categorySlice = createSlice({
+    name: 'category',
+    initialState: {
+        category: [],
+        loading: false,
+        error: null
+    },
+    extraReducers: builder => {
+        builder
+            .addCase(getCategoryThunk.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(getCategoryThunk.fulfilled, (state, action) => {
+                state.loading = false;
+                state.category = action.payload;
+            })
+            .addCase(getCategoryThunk.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+
+            .addCase(postCategoryThunk.fulfilled, (state, action) => {
+                state.category.push(action.payload);
+            })
+             .addCase(postCategoryThunk.pending, (state) => {
+                state.category=true
+            })
+             .addCase(postCategoryThunk.rejected, (state) => {
+                state.category=false
+            })
+
+            .addCase(deleteCategoryThunk.fulfilled, (state, action) => {
+                state.category = state.category.filter(cat => cat._id !== action.payload);
+            })
+             .addCase(deleteCategoryThunk.pending, (state) => {
+                state.category = true;
+            })
+             .addCase(deleteCategoryThunk.rejected, (state) => {
+                state.category = false;
+            });
+          
+    }
 });
 
-export const basketSlice = createSlice({
-  name: 'basket',
-  initialState: {
-    basket: [],
-    loading: false,
-    error: null
-  },
-  reducers: {},
-  extraReducers: builder => {
-    builder
-
-      // Get
-      .addCase(getBasketThunk.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(getBasketThunk.fulfilled, (state, action) => {
-        state.loading = false;
-        state.basket = action.payload;
-      })
-      .addCase(getBasketThunk.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-
-      // Post
-      .addCase(postBasketThunk.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(postBasketThunk.fulfilled, (state, action) => {
-        state.loading = false;
-        state.basket.push(action.payload); // Yeni item əlavə et
-      })
-      .addCase(postBasketThunk.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-
-      // Update
-      .addCase(updateBasketThunk.fulfilled, (state, action) => {
-        state.loading = false;
-        state.basket = state.basket.map(item =>
-          item._id === action.payload._id ? { ...item, quantity: action.payload.quantity } : item
-        );
-      })
-
-      // Delete
-      .addCase(deleteBasketThunk.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(deleteBasketThunk.fulfilled, (state, action) => {
-        state.loading = false;
-        state.basket = state.basket.filter(item => item._id !== action.payload);
-      })
-      .addCase(deleteBasketThunk.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
-  }
-});
-
-export default basketSlice.reducer;
+export default categorySlice.reducer;
+  
