@@ -1,14 +1,15 @@
   import React, { useEffect } from "react";
   import style from "./ProductsSection.module.scss";
   import { IoMdHeart } from "react-icons/io";
+  import { FaRegEye } from "react-icons/fa";
   import { HiMiniFolderArrowDown } from "react-icons/hi2";
   import { LuShoppingCart } from "react-icons/lu";
   import { useDispatch, useSelector } from "react-redux";
   import { getProductsThunk } from "../../../../redux/reducers/productSlice";
-  import { useParams } from "react-router-dom";
+  // import { useParams } from "react-router-dom";
 
   const ProductsSection = () => {
-    const { categoryName } = useParams(); 
+    // const { categoryName } = useParams(); 
 
     const dispatch = useDispatch();
 
@@ -21,7 +22,7 @@
     const loading = useSelector((state) => state.products.loading);
 
    const filterData = products.filter(
-  (product) => product.category?.toLowerCase() === categoryName?.toLowerCase()
+  (product) => product.category?.toLowerCase() === "ilistrasiya"
 );
 
 
@@ -47,6 +48,7 @@
                   <IoMdHeart />
                   <HiMiniFolderArrowDown />
                   <LuShoppingCart />
+                  <FaRegEye />
                 </div>
               </div>
             ))

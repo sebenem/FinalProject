@@ -32,7 +32,7 @@ const Header = () => {
         </div>
         <div className={style.basket}>
          <img src="/images/gps_13897298.png" alt="Cart" /> 
-<img src="/images/shopping-cart.png" alt="Cart" />
+<img src="/images/shopping-cart.png" alt="Cart" onClick={()=> navigate('/basket')} />
         </div>
         <div className={style.login}>
           <button onClick={()=> navigate('/login')}>Login</button>
