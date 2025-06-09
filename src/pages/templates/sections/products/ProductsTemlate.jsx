@@ -6,6 +6,7 @@ import { FaRegEye } from "react-icons/fa";
 import { HiMiniFolderArrowDown } from "react-icons/hi2";
 import { LuShoppingCart } from "react-icons/lu";
 import { getProductsThunk } from '../../../../redux/reducers/productSlice';
+import { postBasketThunk } from '../../../../redux/reducers/basketSlice';
 const ProductsTemlate = () => {
      const dispatch = useDispatch();
 
@@ -21,6 +22,15 @@ const ProductsTemlate = () => {
   const templateProducts = products.filter(
     (product) => product.category?.toLowerCase() === "template"
   );
+
+     const handleAddToBasket = (item) => {
+        dispatch(postBasketThunk({
+          image: item.image,
+          title: item.title,
+          price: item.price,
+          category: item.category
+        }));
+      };
 
   if (error) return <h2>Xəta var</h2>;
   if (loading) return <h2>Yüklənir...</h2>;
@@ -43,7 +53,7 @@ const ProductsTemlate = () => {
               <div className={style.icon}>
                 <IoMdHeart />
                 <HiMiniFolderArrowDown />
-                <LuShoppingCart />
+                <LuShoppingCart onClick={()=> handleAddToBasket(item)} />
                 <FaRegEye />
               </div>
             </div>

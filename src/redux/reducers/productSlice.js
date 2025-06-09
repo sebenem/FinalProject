@@ -1,25 +1,29 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const getProductsThunk = createAsyncThunk('api/products', async () => {
-  const response = await axios.get("http://localhost:5008/products");
-  return response.data;
+// PRODUCTS GET
+export const getProductsThunk = createAsyncThunk('products/getAll', async () => {
+  const res = await axios.get('http://localhost:5008/products');
+  return res.data;
 });
 
+// PRODUCT ADD (FORMIK)
+export const addFormikThunk = createAsyncThunk('products/add', async (data) => {
+  const res = await axios.post('http://localhost:5008/products', data); // DİQQƏT: YALNIZ PRODUCTS
+  return res.data;
+});
+
+// PRODUCT DELETE
 export const deleteProductThunk = createAsyncThunk('products/delete', async (id) => {
-  await axios.delete(`http://localhost:5000/products/${id}`);
+  await axios.delete(`http://localhost:5008/products/${id}`);
   return id;
 });
 
-export const addFormikThunk = createAsyncThunk('api/formik', async (data) => {
-  const response = await axios.post('http://localhost:5000/products', data);
-  return response.data;
-});
-
-export const fetchProductDetails = createAsyncThunk('products/fetchProductDetails', async (id, { rejectWithValue }) => {
+// PRODUCT BY ID
+export const fetchProductDetails = createAsyncThunk('products/getById', async (id, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`http://localhost:5000/products/${id}`);
-    return response.data;
+    const res = await axios.get(`http://localhost:5008/products/${id}`);
+    return res.data;
   } catch (error) {
     return rejectWithValue(error.response?.data?.error || 'Xəta baş verdi');
   }
@@ -31,7 +35,7 @@ const productSlice = createSlice({
     products: [],
     product: null,
     loading: false,
-    error: null,
+    error: null
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -48,42 +52,26 @@ const productSlice = createSlice({
         state.error = action.error.message;
       })
 
-      .addCase(deleteProductThunk.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(deleteProductThunk.fulfilled, (state, action) => {
-        state.loading = false;
-        state.products = state.products.filter((item) => item._id !== action.payload);
-      })
-      .addCase(deleteProductThunk.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-
       .addCase(addFormikThunk.pending, (state) => {
         state.loading = true;
       })
       .addCase(addFormikThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.products.push(action.payload);
+        state.products.push(action.payload); // BASKETƏ YOX, SADƏCƏ PRODUCTS-Ə ƏLAVƏ
       })
       .addCase(addFormikThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
 
-      .addCase(fetchProductDetails.pending, (state) => {
-        state.loading = true;
+      .addCase(deleteProductThunk.fulfilled, (state, action) => {
+        state.products = state.products.filter((item) => item._id !== action.payload);
       })
+
       .addCase(fetchProductDetails.fulfilled, (state, action) => {
-        state.loading = false;
         state.product = action.payload;
-      })
-      .addCase(fetchProductDetails.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
       });
-  },
+  }
 });
 
 export default productSlice.reducer;

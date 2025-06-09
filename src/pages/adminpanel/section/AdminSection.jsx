@@ -1,19 +1,10 @@
-import React, { useEffect } from 'react';
-import style from './AdminSection.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  getWishlistThunk,
-  deleteWishlistThunk,
-} from '../../../redux/reducers/wishlistSlice';
-import {
-  getCategoryThunk,
-  deleteCategoryThunk,
-} from '../../../redux/reducers/basketSlice';
-import {
-  getProductsThunk,
-  deleteProductThunk,
-} from '../../../redux/reducers/productSlice';
-import { getUser } from '../../../redux/reducers/userSlice';
+import React, { useEffect } from "react";
+import style from "./AdminSection.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { getWishlistThunk, deleteWishlistThunk,} from "../../../redux/reducers/wishlistSlice";
+import { getProductsThunk, deleteProductThunk,} from "../../../redux/reducers/productSlice";
+import { getUser } from "../../../redux/reducers/userSlice";
+import { deleteBasketThunk, getBasketThunk } from "../../../redux/reducers/basketSlice";
 
 const AdminSection = () => {
   const dispatch = useDispatch();
@@ -21,25 +12,22 @@ const AdminSection = () => {
   // ==================== SELECTORS ====================
   const user = useSelector((state) => state.user?.user) || null;
 
-  const {
-    products = [],
-    loading: productsLoading,
-  } = useSelector((state) => state.products || {});
+  const { products = [], loading: productsLoading } = useSelector(
+    (state) => state.products || {}
+  );
 
-  const {
-    category = [],
-    loading: categoryLoading,
-  } = useSelector((state) => state.category || {});
+  const { category = [], loading: categoryLoading } = useSelector(
+    (state) => state.category || {}
+  );
 
-  const {
-    wishlist = [],
-    loading: wishlistLoading,
-  } = useSelector((state) => state.wishlist || {});
+  const { wishlist = [], loading: wishlistLoading } = useSelector(
+    (state) => state.wishlist || {}
+  );
 
   // ==================== USE EFFECT ====================
   useEffect(() => {
     dispatch(getProductsThunk());
-    dispatch(getCategoryThunk());
+    dispatch(getBasketThunk());
     dispatch(getWishlistThunk());
     dispatch(getUser());
   }, [dispatch]);
@@ -83,7 +71,9 @@ const AdminSection = () => {
                   <td>{prod.name}</td>
                   <td>{prod.price} ₼</td>
                   <td>
-                    <button onClick={() => dispatch(deleteProductThunk(prod._id))}>
+                    <button
+                      onClick={() => dispatch(deleteProductThunk(prod._id))}
+                    >
                       Sil
                     </button>
                   </td>
@@ -104,7 +94,9 @@ const AdminSection = () => {
             {category.map((cat) => (
               <li key={cat._id}>
                 <span>{cat.name}</span>
-                <button onClick={() => dispatch(deleteCategoryThunk(cat._id))}>Sil</button>
+                <button onClick={() => dispatch(deleteBasketThunk(cat._id))}>
+                  Sil
+                </button>
               </li>
             ))}
           </ul>

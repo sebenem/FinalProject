@@ -52,7 +52,7 @@ export const categorySlice = createSlice({
             })
 
             .addCase(deleteCategoryThunk.fulfilled, (state, action) => {
-                state.category = state.category.filter(cat => cat._id !== action.payload);
+                state.category = state.category.filter(item => item._id !== action.payload);
             })
              .addCase(deleteCategoryThunk.pending, (state) => {
                 state.category = true;

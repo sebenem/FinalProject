@@ -6,6 +6,7 @@
   import { LuShoppingCart } from "react-icons/lu";
   import { useDispatch, useSelector } from "react-redux";
   import { getProductsThunk } from "../../../../redux/reducers/productSlice";
+import { postBasketThunk } from "../../../../redux/reducers/basketSlice";
   // import { useParams } from "react-router-dom";
 
   const ProductsSection = () => {
@@ -25,6 +26,15 @@
   (product) => product.category?.toLowerCase() === "ilistrasiya"
 );
 
+  // ✅ Yeni funksiya: səbətə əlavə etmək
+  const handleAddToBasket = (item) => {
+    dispatch(postBasketThunk({
+      image: item.image,
+      title: item.title,
+      price: item.price,
+      category: item.category
+    }));
+  };
 
     if (error) return <h2>Xəta var</h2>;
     if (loading) return <h2>Yüklənir...</h2>;
@@ -47,7 +57,7 @@
                 <div className={style.icon}>
                   <IoMdHeart />
                   <HiMiniFolderArrowDown />
-                  <LuShoppingCart />
+                  <LuShoppingCart onClick={()=>handleAddToBasket(item)}   />
                   <FaRegEye />
                 </div>
               </div>
