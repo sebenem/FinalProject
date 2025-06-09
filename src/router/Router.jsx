@@ -8,6 +8,7 @@ import Dpages from "../pages/3d/Dpages";
 import Templates from "../pages/templates/Templates";
 import AdminPanel from "../pages/adminpanel/AdminPanel";
 import Basket from "../pages/basket/Basket";
+import WishlistPages from "../pages/wishlistpages/WishlistPages";
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
         <Route path="/templates" element={<Templates />} />
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/basket" element={<Basket />} />
+          <Route path="/wishlist" element={<WishlistPages />} />
       </Routes>
     </BrowserRouter>
   );

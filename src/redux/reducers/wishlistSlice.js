@@ -1,10 +1,10 @@
     import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
     import axios from "axios";
 
-    export const getWishlistThunk = createAsyncThunk('api/getWishlist', async () => {
-        const res = await axios.get('http://localhost:5008/wishlist');
-        return res.data;
-    });
+   export const getWishlistThunk = createAsyncThunk('api/getWishlist', async () => {
+    const res = await axios.get('http://localhost:5008/wishlist');
+    return res.data.data; // <-- düzəliş burada
+});
 
     export const updateWishlistThunk = createAsyncThunk('update/wishlist', async (product) => {
         const res = await axios.put(`http://localhost:5008/wishlist/${product._id}`, product);
