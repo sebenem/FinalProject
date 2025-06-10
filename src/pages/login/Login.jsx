@@ -10,7 +10,7 @@ const Login = () => {
 <h3>Adobe Stock</h3>
         </div>
         <div className={style.login}>
-            <h2>Sign in</h2>
+            <h1>Sign in</h1>
             <p>New user? <a href="" onClick={()=>navigate('/signup')}> Create an account</a></p>
             <input type="email" placeholder='Email' />
             <input type="password" placeholder='Password' />
