@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import style from './ProductsTemlate.module.scss'
+import React, { useEffect } from 'react';
+import style from './ProductsTemlate.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { IoMdHeart } from "react-icons/io";
 import { FaRegEye } from "react-icons/fa";
@@ -8,39 +8,52 @@ import { LuShoppingCart } from "react-icons/lu";
 import { getProductsThunk } from '../../../../redux/reducers/productSlice';
 import { postBasketThunk } from '../../../../redux/reducers/basketSlice';
 import { postWishlistThunk } from '../../../../redux/reducers/wishlistSlice';
+import { useNavigate } from 'react-router-dom';
+
 const ProductsTemlate = () => {
-     const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const products = useSelector((state) => state.products.products);
+  const error = useSelector((state) => state.products.error);
+  const loading = useSelector((state) => state.products.loading);
+  const user = useSelector((state) => state.user.user); // Login olub olmadığını yoxlamaq üçün
 
   useEffect(() => {
     dispatch(getProductsThunk());
   }, [dispatch]);
 
-  const products = useSelector((state) => state.products.products);
-  const error = useSelector((state) => state.products.error);
-  const loading = useSelector((state) => state.products.loading);
-
-  // Yalnız "Template" olan məhsulları süzürük
   const templateProducts = products.filter(
     (product) => product.category?.toLowerCase() === "template"
   );
 
-     const handleAddToBasket = (item) => {
-        dispatch(postBasketThunk({
-          image: item.image,
-          title: item.title,
-          price: item.price,
-          category: item.category
-        }));
-      };
+  const handleAddToBasket = (item) => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
 
-         const handAddWishlist = (item) => {
-            dispatch(postWishlistThunk({
-                image: item.image,
-                title: item.title,
-                price: item.price,
-                category: item.category
-            }))
-          }
+    dispatch(postBasketThunk({
+      image: item.image,
+      title: item.title,
+      price: item.price,
+      category: item.category
+    }));
+  };
+
+  const handAddWishlist = (item) => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
+    dispatch(postWishlistThunk({
+      image: item.image,
+      title: item.title,
+      price: item.price,
+      category: item.category
+    }));
+  };
 
   if (error) return <h2>Xəta var</h2>;
   if (loading) return <h2>Yüklənir...</h2>;
@@ -61,9 +74,9 @@ const ProductsTemlate = () => {
               </div>
 
               <div className={style.icon}>
-                <IoMdHeart onClick={()=>handAddWishlist(item)} />
+                <IoMdHeart onClick={() => handAddWishlist(item)} />
                 <HiMiniFolderArrowDown />
-                <LuShoppingCart onClick={()=> handleAddToBasket(item)} />
+                <LuShoppingCart onClick={() => handleAddToBasket(item)} />
                 <FaRegEye />
               </div>
             </div>
@@ -73,7 +86,8 @@ const ProductsTemlate = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductsTemlate
+export default ProductsTemlate;
+

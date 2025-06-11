@@ -1,154 +1,133 @@
-$bgGradientTop: #f9f5f0;
-$bgGradientBottom: #e9d5ca;
-$textPrimary: #3e2c27;
-$textSecondary: #735d58;
-$accent: #c08457;
-$inputBg: rgba(255, 255, 255, 0.75);
-$inputBorder: #ffffff8a;
-
 .container {
-  color: $textPrimary;
-  font-family: "Times New Roman", Times, serif;
   width: 100%;
-  height: 100vh;
-  background: linear-gradient(to bottom right, $bgGradientTop, $bgGradientBottom);
+  min-height: 100vh;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.6)
+    ),
+    url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTIz7mluycgc_BzdP67lSyHXH6_ro5Lh0GcQ&s")
+      center/cover no-repeat;
+  font-family: "Times New Roman", Times, serif;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  color: #fff;
 
   .logo {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     margin-bottom: 2rem;
     cursor: pointer;
 
     h2 {
-      background-color: $accent;
-      color: white;
-      padding: 6px 12px;
+      background-color: #000;
+      color: #fff;
+      padding: 6px 14px;
       border-radius: 10px;
-      font-size: 26px;
+      font-size: 28px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     }
 
     h3 {
       font-size: 22px;
-      font-weight: 500;
-      color: $textSecondary;
+      font-weight: 600;
+      color: #eee;
     }
   }
 
   .login {
-    width: 340px;
-    height: 370px;
-    background: $inputBg;
+    width: 380px;
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    border: 1px solid $inputBorder;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     border-radius: 20px;
+    padding: 2rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    padding: 1rem;
+    align-items: center;
 
     h1 {
-      margin-bottom: 12px;
-      color: $textPrimary;
-      font-size: 24px;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
     }
 
     p {
-      margin-bottom: 7px;
-      font-size: 1rem;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
 
       a {
+        color: #ddd;
         text-decoration: none;
-        color: $accent;
         font-weight: 600;
-        font-size: 1.05rem;
+        cursor: pointer;
 
         &:hover {
           text-decoration: underline;
+          color: #fff;
         }
       }
     }
 
-    input {
-      width: 250px;
-      height: 40px;
-      margin: 20px 0 12px;
-      background-color: $inputBg;
-      border: 1px solid $inputBorder;
-      border-radius: 30px;
-      padding: 10px;
-      color: $textPrimary;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
 
-      &::placeholder {
-        color: #5a5a5a;
-        font-size: 0.85rem;
-        letter-spacing: 0.4px;
-      }
+      input {
+        width: 100%;
+        height: 42px;
+        border-radius: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        padding: 0 15px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
 
-      &:focus {
-        border-color: $accent;
-        box-shadow: 0 0 5px $accent;
-        background-color: rgba(255, 255, 255, 0.9);
+        &::placeholder {
+          color: #f1f1f1b9;
+        }
+
+        &:focus {
+          outline: none;
+          background-color: rgba(255, 255, 255, 0.3);
+          border-color: #fff;
+        }
       }
     }
-  }
 
-  .batn {
-    width: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    .batn {
+      margin-top: 2rem;
+      width: 100%;
 
-    span {
-      font-size: 0.85rem;
-
-      a {
-        text-decoration: none;
-        color: $textPrimary;
+      button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 30px;
+        border: none;
+        background-color: #ffffff;
+        color: #000;
         font-weight: bold;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s;
 
         &:hover {
-          color: $accent;
-          transition: color 0.3s ease;
+          background-color: #e0e0e0;
         }
       }
     }
-
-    button {
-      width: 100%;
-      border: none;
-      padding: 10px;
-      border-radius: 30px;
-      margin: 15px 0;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1rem;
-      background-color: $accent;
-      color: white;
-      transition: background-color 0.3s ease;
-
-      &:hover {
-        background-color: darken($accent, 10%);
-      }
-    }
   }
-
- 
-
-
 }
- @media screen and (min-width:300px) and (max-width:576px) {
-.container {
-    height: auto;
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 576px) {
+  .container {
+    padding: 1rem;
 
     .logo {
       flex-direction: column;
@@ -167,48 +146,39 @@ $inputBorder: #ffffff8a;
       padding: 1.5rem;
 
       h1 {
-        font-size: 20px;
+        font-size: 22px;
       }
 
-      input {
-        width: 100%;
+      p {
         font-size: 0.85rem;
       }
-    }
 
-    .batn {
-      width: 100%;
+      .form input {
+        font-size: 0.85rem;
+      }
 
-      button {
+      .batn button {
         font-size: 0.9rem;
       }
+    }
+  }
+}
 
-      span {
-        font-size: 0.75rem;
-      }
-    }
+@media screen and (min-width: 577px) and (max-width: 768px) {
+  .login {
+    width: 85%;
   }
-  }
- @media screen and (min-width:576px) and (max-width:768px) {
-   .container {
-    .login {
-      width: 80%;
-    }
-  }
-  }
+}
 
-   @media screen and (min-width:768px) and (max-width:992px) {
-    .container {
-    .login {
-      width: 65%;
-    }
+@media screen and (min-width: 769px) and (max-width: 992px) {
+  .login {
+    width: 70%;
   }
-  }
+}
 
-    @media screen and (min-width:992px) and (max-width:1024px) {
-   .container {
-    .login {
-      width: 55%;
-    }
+@media screen and (min-width: 993px) and (max-width: 1200px) {
+  .login {
+    width: 60%;
   }
-  }
+}
+

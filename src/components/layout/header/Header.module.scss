@@ -1,138 +1,290 @@
-.container{
-    width: 100%;
-    min-height: 12vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.container {
+  width: 100%;
+  min-height: 12vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-    .conTop{
-        width: 100%;
-        display: flex;
+
+  .conTop {
+    width: 100%;
+    display: flex;
     justify-content: space-evenly;
     align-items: center;
     margin-top: 1rem;
-    .logo{
-        width: 20%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 3px;
-        cursor: pointer;
-        h2{
-            padding: 3px;
-            background-color: black;
-            color: white;
-            border-radius:9px;
-        }
+
+    .logo {
+      width: 20%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+
+      h2 {
+        padding: 3px;
+        background-color: black;
+        color: white;
+        border-radius: 9px;
+      }
+
+      h3 {
+        font-size: 18px;
+        font-weight: 500;
+      }
     }
-       .navbar{
-        width: 40%;
-        ul{
-            list-style-type: none;
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            li,a{
-                text-decoration: none;
-                font-size: 17px;
-                color: gray;
-                &:hover{
-                    color: black;
-                    text-decoration: 3px underline solid red;
-                }
-            }
-        }
-    }
-    // .search{
-    //     width: 30%;
-    //       background-color: var(--site-search-initial-bg-color, #f3f3f6);
-    //     padding: 8px;
-    //     display: flex;
-    //     justify-content: center;
-    //     gap: 6px;
-    //     border-radius: 20px;
-    //     .icoSearch{
-    //         font-size: 30px;
-    //         padding: 2px;
-    //         border-radius: 50px;
-    //     }
-    //     input{
-    //         width: 70%;
-    //         padding: 4px;
-    //         border: none;
-    //         background-color: transparent;
-    //     }
-    // }
-    .basket{
-        width: 12%;
-        display: flex;
-        gap: 1rem;
-        img{
-            width:12%;
-        }
-        svg{
-            font-size: 20px;
-            color:#f3f3f6;
-            &:hover{
-                color: red;
-            }
-        }
-    }
-    .login{
-        width: 16%;
+
+    .navbar {
+      width: 40%;
+
+      ul {
+        list-style: none;
         display: flex;
         justify-content: space-evenly;
         align-items: center;
-        button{
-            padding: 12px;
-            background-color: #f3f3f6;
-            border: 1px solid pink;
-            border-radius: 20px;
-            cursor: pointer;
-        
-            &:hover{
-                background-color: rgba(255, 0, 0, 0.584);
-                color: white;
-            }
+
+        li,
+        a {
+          text-decoration: none;
+          font-size: 17px;
+          color: gray;
+
+          &:hover {
+            color: black;
+            text-decoration: underline 3px solid red;
+          }
         }
-     
+      }
     }
-       .menu{
-            width: 12%;
-            text-align: center;
-            display: none;
-            justify-content: center;
-            .burger{
-                font-size: 23px;
-                cursor: pointer;
-                color: gray;
-                &:hover{
-                    color: black;
-                            }
-            }
-        }
-       .list{
-        width: 20%;
-        display: none;
-        flex-direction: column;
-        ul{
-            list-style-type: none;
-            display: flex;
-            flex-direction: column;
-            li,a{
-                text-decoration: none;
-                font-size: 17px;
-                color: gray;
-                &:hover{
-                    color: black;
-                    text-decoration: 2px underline solid red;
-                }
-            }
-        }
-       }
+
+    .basket {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  svg {
+    font-size: 22px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      color: #2575fc; // hover zamanı göy rəngə keçsin
+      transform: scale(1.2);
     }
-  
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
 }
+
+.menu {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+
+    .burger {
+      font-size: 26px;
+      color: #333;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: scale(1.2);
+        color: #2575fc;
+      }
+    }
+  }
+}
+
+
+    .login {
+      width: 16%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+   button {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc); // göy-bənövşəyi gradient
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(120deg, #42e695, #3bb2b8);
+    transition: all 0.4s ease-in-out;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  &:hover::before {
+    left: 0;
+    opacity: 1;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    color: #fff;
+  }
+
+  &:active {
+    transform: scale(0.95);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+    }
+
+    .menu {
+      width: 12%;
+      text-align: center;
+      display: none;
+      justify-content: center;
+
+      .burger {
+        font-size: 23px;
+        cursor: pointer;
+        color: gray;
+
+        &:hover {
+          color: black;
+        }
+      }
+    }
+
+    .list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 1rem;
+
+      ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        li,
+        a {
+          text-decoration: none;
+          font-size: 18px;
+          color: gray;
+
+          &:hover {
+            color: black;
+            text-decoration: underline 2px solid red;
+          }
+        }
+      }
+
+    button {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc); // göy-bənövşəyi gradient
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(120deg, #42e695, #3bb2b8);
+    transition: all 0.4s ease-in-out;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  &:hover::before {
+    left: 0;
+    opacity: 1;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    color: #fff;
+  }
+
+  &:active {
+    transform: scale(0.95);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+    }
+  }
+}
+
+/* RESPONSIVE STİLLƏR */
+@media screen and (max-width: 768px) {
+  .container {
+    .conTop {
+      flex-wrap: wrap;
+
+      .navbar,
+      .login {
+        display: none;
+      }
+
+      .menu {
+        display: flex;
+      }
+
+      .logo {
+        width: 50%;
+        justify-content: flex-start;
+        h2 {
+          font-size: 16px;
+        }
+        h3 {
+          font-size: 16px;
+        }
+      }
+
+      .basket {
+        width: 20%;
+        img {
+          width: 20px;
+        }
+      }
+
+      .list {
+        button {
+          width: 80%;
+        }
+      }
+    }
+  }
+}
+
 
 @media screen and (min-width:300px) and (max-width:576px) {
 .container{
