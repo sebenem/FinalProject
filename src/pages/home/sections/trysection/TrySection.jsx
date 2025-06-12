@@ -1,6 +1,11 @@
 import React from 'react'
 import style from './TrySection.module.scss'
+import { useNavigate } from 'react-router-dom'
 const TrySection = () => {
+  const navigate = useNavigate()
+  const goTryIt = () =>{
+    navigate('/try')
+  }
   return (
        <div className={style.container}>
       <div className={style.con}>
@@ -18,7 +23,7 @@ const TrySection = () => {
               />
             </div>
             <h2>1. Search and Evaluate</h2>
-            <button>Try It</button>
+            <button onClick={()=>goTryIt()}>Try It</button>
           </div>
 
           <div className={style.cart}>
@@ -32,7 +37,7 @@ const TrySection = () => {
               />
             </div>
             <h2>2: Customize multiple images</h2>
-            <button>Try It</button>
+            <button onClick={()=>goTryIt()}>Try It</button>
           </div>
 
           <div className={style.cart}>
@@ -43,7 +48,7 @@ const TrySection = () => {
               />
             </div>
             <h2>3: Download</h2>
-            <button>Try It</button>
+            <button onClick={()=>goTryIt()}>Try It</button>
           </div>
         </div>
       </div>
