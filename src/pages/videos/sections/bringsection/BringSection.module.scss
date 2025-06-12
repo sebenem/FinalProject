@@ -1,0 +1,89 @@
+.container{
+    width: 100%;
+    min-height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://slp-statics.astockcdn.net/static_assets/staging/23spring/video/seo-blade-2/footer-1.jpg?width=1555);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    .text{
+        width: 70%;
+        text-align: center;
+        color: white;
+        h1{
+            font-size: 30px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            margin-bottom: 1rem;
+        }
+        p{
+            font-size: 16.8px;
+          
+
+        }
+    }
+}
+@media screen and (min-width: 300px) and (max-width: 576px) {
+  .container {
+    .text {
+      width: 85%;
+
+      h1 {
+        font-size: 26px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .container {
+    .text {
+      width: 85%;
+
+      h1 {
+        font-size: 26px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .container {
+    .text {
+      width: 80%;
+
+      h1 {
+        font-size: 28px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1024px) {
+  .container {
+    .text {
+      width: 75%;
+
+      h1 {
+        font-size: 29px;
+      }
+
+      p {
+        font-size: 16.5px;
+      }
+    }
+  }
+}

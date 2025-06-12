@@ -1,65 +1,170 @@
-.adminSection {
-  padding: 24px;
-  display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  background-color: #f9f9f9;
-  min-height: 100vh;
+.admin {
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f7f9fb;
+  color: #333;
+
+  h1 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #222;
+  }
 }
 
-.card {
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  padding: 20px;
+.addSection {
+  margin-bottom: 2rem;
+
+  .addButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .form {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    label {
+      grid-column: span 2;
+      font-weight: 600;
+    }
+
+    input {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .submitButton {
+      grid-column: span 2;
+      background-color: #28a745;
+      color: white;
+      padding: 0.7rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: #218838;
+      }
+    }
+  }
 }
 
-.card h2 {
-  margin-bottom: 16px;
-  font-size: 1.5rem;
+.controlPanel {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+
+  .searchInput {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 200px;
+  }
+
+  .sortSelect {
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+  }
+
+  .sortButton {
+    background-color: #ffc107;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #e0a800;
+    }
+  }
 }
 
-.table {
+.productTable {
   width: 100%;
   border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+
+  th, td {
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid #eaeaea;
+  }
+
+  th {
+    background-color: #f1f1f1;
+    font-weight: 600;
+  }
+
+  .productImage {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .deleteButton {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    margin-right: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #c82333;
+    }
+  }
+
+  .editButton {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #138496;
+    }
+  }
 }
 
-.table th,
-.table td {
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
 }
 
-.table th {
-  background-color: #f0f0f0;
-  font-weight: 600;
-}
-
-.list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-}
-
-button {
-  background-color: #e53e3e;
-  border: none;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #c53030;
+.error {
+  text-align: center;
+  font-size: 1.2rem;
+  color: red;
 }

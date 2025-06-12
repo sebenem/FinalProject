@@ -1,130 +1,162 @@
-import React, { useEffect } from "react";
-import style from "./AdminSection.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { getWishlistThunk, deleteWishlistThunk,} from "../../../redux/reducers/wishlistSlice";
-import { getProductsThunk, deleteProductThunk,} from "../../../redux/reducers/productSlice";
-import { getUser } from "../../../redux/reducers/userSlice";
-import { deleteBasketThunk, getBasketThunk } from "../../../redux/reducers/basketSlice";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import styles from './AdminSection.module.scss';
+import { useFormik } from 'formik';
+import { FaChevronDown, FaChevronUp, FaEdit } from 'react-icons/fa';
+import { addFormikThunk, deleteProductThunk, editProductThunk, getProductsThunk } from '../../../redux/reducers/productSlice';
 
 const AdminSection = () => {
   const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.products);
+  const loading = useSelector((state) => state.products.loading);
+  const error = useSelector((state) => state.products.error);
 
-  // ==================== SELECTORS ====================
-  const user = useSelector((state) => state.user?.user) || null;
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortBy, setSortBy] = useState('price');
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [editId, setEditId] = useState(null);
 
-  const { products = [], loading: productsLoading } = useSelector(
-    (state) => state.products || {}
-  );
+  const toggleFormVisibility = () => {
+    setIsFormVisible(!isFormVisible);
+    setEditId(null);
+    formik.resetForm();
+  };
 
-  const { category = [], loading: categoryLoading } = useSelector(
-    (state) => state.category || {}
-  );
+  const deleteProducts = (id) => {
+    dispatch(deleteProductThunk(id));
+  };
 
-  const { wishlist = [], loading: wishlistLoading } = useSelector(
-    (state) => state.wishlist || {}
-  );
+  const filteredProducts = products
+    ?.filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase()))
+    ?.sort((a, b) => {
+      if (sortBy === 'price') {
+        return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
+      } else if (sortBy === 'title') {
+        return sortOrder === 'asc'
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title);
+      }
+      return 0;
+    });
 
-  // ==================== USE EFFECT ====================
+  const getSortButtonLabel = () => {
+    if (sortBy === 'price') {
+      return sortOrder === 'asc' ? 'Ən ucuzdan bahaya' : 'Ən bahadan ucuza';
+    } else if (sortBy === 'title') {
+      return sortOrder === 'asc' ? 'A-dan Z-yə' : 'Z-dən A-ya';
+    }
+    return 'Sırala';
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      image: '',
+      title: '',
+      price: '',
+      category: '',
+    },
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        if (editId) {
+          await dispatch(editProductThunk({ id: editId, updatedProduct: values }));
+        } else {
+          await dispatch(addFormikThunk(values));
+        }
+        resetForm();
+        setEditId(null);
+        setIsFormVisible(false);
+      } catch (error) {
+        console.error('Xəta:', error);
+      }
+    },
+  });
+
+  const handleEdit = (product) => {
+    setEditId(product._id);
+    formik.setValues({
+      image: product.image,
+      title: product.title,
+      price: product.price,
+      category: product.category,
+    });
+    setIsFormVisible(true);
+  };
+
   useEffect(() => {
     dispatch(getProductsThunk());
-    dispatch(getBasketThunk());
-    dispatch(getWishlistThunk());
-    dispatch(getUser());
   }, [dispatch]);
 
+  if (loading) return <p className={styles.loading}>Yüklənir...</p>;
+  if (error) return <p className={styles.error}>Xəta baş verdi...</p>;
+
   return (
-    <div className={style.adminSection}>
-      {/* 👤 Admin Məlumatı */}
-      <div className={style.card}>
-        <h2>👤 Admin Məlumatı</h2>
-        {user ? (
-          <div>
-            <p>
-              <b>Ad:</b> {user.name}
-            </p>
-            <p>
-              <b>Email:</b> {user.email}
-            </p>
-          </div>
-        ) : (
-          <p>Yüklənir...</p>
+    <div className={styles.admin}>
+      <div className={styles.addSection}>
+        <button className={styles.addButton} onClick={toggleFormVisibility}>
+          {editId ? 'Edit product' : 'Add new product'} {isFormVisible ? <FaChevronUp /> : <FaChevronDown />}
+        </button>
+        {isFormVisible && (
+          <form onSubmit={formik.handleSubmit} className={styles.form}>
+            <label htmlFor="image">Image</label>
+            <input id="image" name="image" type="text" onChange={formik.handleChange} value={formik.values.image} />
+
+            <label htmlFor="title">Title</label>
+            <input id="title" name="title" type="text" onChange={formik.handleChange} value={formik.values.title} />
+
+            <label htmlFor="price">Price</label>
+            <input id="price" name="price" type="number" onChange={formik.handleChange} value={formik.values.price} />
+
+            <label htmlFor="category">Category</label>
+            <input id="category" name="category" type="text" onChange={formik.handleChange} value={formik.values.category} />
+
+            <button type="submit" className={styles.submitButton}>{editId ? 'Yenilə' : 'Əlavə et'}</button>
+          </form>
         )}
       </div>
 
-      {/* 📦 Məhsullar */}
-      <div className={style.card}>
-        <h2>📦 Məhsullar</h2>
-        {productsLoading ? (
-          <p>Yüklənir...</p>
-        ) : (
-          <table className={style.table}>
-            <thead>
-              <tr>
-                <th>Ad</th>
-                <th>Qiymət</th>
-                <th>Əməliyyat</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((prod) => (
-                <tr key={prod._id}>
-                  <td>{prod.name}</td>
-                  <td>{prod.price} ₼</td>
-                  <td>
-                    <button
-                      onClick={() => dispatch(deleteProductThunk(prod._id))}
-                    >
-                      Sil
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+      <div className={styles.controlPanel}>
+        <h1>Admin Panel</h1>
+        <input
+          className={styles.searchInput}
+          type="text"
+          placeholder="Məhsul axtar..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <select className={styles.sortSelect} onChange={(e) => setSortBy(e.target.value)} value={sortBy}>
+          <option value="price">Qiymətə görə</option>
+          <option value="title">Başlığa görə</option>
+        </select>
+        <button className={styles.sortButton} onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}>
+          {getSortButtonLabel()}
+        </button>
       </div>
 
-      {/* 📁 Kateqoriyalar */}
-      <div className={style.card}>
-        <h2>📁 Kateqoriyalar</h2>
-        {categoryLoading ? (
-          <p>Yüklənir...</p>
-        ) : category.length > 0 ? (
-          <ul className={style.list}>
-            {category.map((cat) => (
-              <li key={cat._id}>
-                <span>{cat.name}</span>
-                <button onClick={() => dispatch(deleteBasketThunk(cat._id))}>
-                  Sil
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Kateqoriya yoxdur</p>
-        )}
-      </div>
-
-      {/* 💖 Seçilmişlər */}
-      <div className={style.card}>
-        <h2>💖 Seçilmişlər</h2>
-        {wishlistLoading ? (
-          <p>Yüklənir...</p>
-        ) : Array.isArray(wishlist) && wishlist.length > 0 ? (
-          <ul className={style.list}>
-            {wishlist.map((item) => (
-              <li key={item._id}>
-                <span>{item.name}</span>
-                <button onClick={() => dispatch(deleteWishlistThunk(item._id))}>
-                  Sil
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Seçilmiş məhsul yoxdur</p>
-        )}
-      </div>
+      <table className={styles.productTable}>
+        <thead>
+          <tr>
+            <th>Şəkil</th>
+            <th>Başlıq</th>
+            <th>Qiymət</th>
+            <th>Əməliyyat</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredProducts?.map((item) => (
+            <tr key={item._id}>
+              <td><img className={styles.productImage} src={item.image} alt={item.title} /></td>
+              <td>{item.title}</td>
+              <td>{item.price} ₼</td>
+              <td>
+                <button onClick={() => deleteProducts(item._id)} className={styles.deleteButton}>Sil</button>
+                <button onClick={() => handleEdit(item)} className={styles.editButton}><FaEdit /></button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

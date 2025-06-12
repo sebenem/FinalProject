@@ -49,3 +49,162 @@ h2{
     }
 }
 }
+
+@media screen and (min-width: 300px) and (max-width:576px) {
+  .container {
+    padding: 2rem;
+
+    .carts {
+      flex-direction: column;
+      width: 95%;
+
+      .text, .image {
+        width: 100%;
+        padding: 8px;
+      }
+
+      .text {
+        order: 2;
+        span {
+          font-size: 16px;
+        }
+      }
+
+      .image {
+        order: 1;
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    .xett {
+      width: 50%;
+    }
+  }
+}
+
+@media screen and (min-width: 577px) and (max-width: 768px) {
+  .container {
+    padding: 3rem;
+
+    .carts {
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 90%;
+
+      .text {
+        width: 70%;
+        padding: 7px;
+        span {
+          font-size: 17px;
+        }
+      }
+
+      .image {
+        width: 60%;
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+    }
+
+    p {
+      font-size: 19px;
+    }
+
+    h2 {
+      font-size: 21px;
+    }
+
+    .xett {
+      width: 40%;
+    }
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 992px) {
+  .container {
+    padding: 3.5rem;
+
+    .carts {
+      width: 85%;
+
+      .text {
+        width: 40%;
+        padding: 12px;
+        span {
+          font-size: 18px;
+        }
+      }
+
+      .image {
+        width: 60%;
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+    }
+
+    p {
+      font-size: 20px;
+    }
+
+    h2 {
+      font-size: 22px;
+    }
+
+    .xett {
+      width: 35%;
+    }
+  }
+}
+
+@media screen and (min-width: 993px) and (max-width: 1024px) {
+  .container {
+    padding: 4rem;
+
+    .carts {
+      width: 80%;
+
+      .text {
+        width: 35%;
+        padding: 14px;
+        span {
+          font-size: 19px;
+        }
+      }
+
+      .image {
+        width: 65%;
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+    }
+
+    p {
+      font-size: 20px;
+    }
+
+    h2 {
+      font-size: 22px;
+    }
+
+    .xett {
+      width: 30%;
+    }
+  }
+}

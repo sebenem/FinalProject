@@ -4,7 +4,7 @@ const Image = () => {
   return (
     <div className={style.container}>
       <div className={style.image}>
-        <img src="/images/6dcaf15b02cf92c9d1b5e3a8870cf29609f903cc.3d-hero.jpg" alt="" />
+        <img src="/images/e2cb02bda61cf3b94e45b538c0db042980d2714f.3d-contributors.webp" alt="" />
       </div>
     </div>
   )

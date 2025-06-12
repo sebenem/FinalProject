@@ -5,6 +5,8 @@ import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
 import { FaRegHeart } from "react-icons/fa6";
 import { SlBasketLoaded } from "react-icons/sl";
+import { FaRegUserCircle } from "react-icons/fa";
+
 import { useNavigate } from 'react-router-dom';
 const Header = () => {
 
@@ -28,13 +30,14 @@ const Header = () => {
            <li><a href="/">Home</a></li>
             <li><a href="/illustra">Illustrations</a></li>
             <li><a href="/3d">3D</a></li>
-            <li><a href="">Videos</a></li>
+            <li><a href="videos">Videos</a></li>
             <li><a href="/templates">Templates </a></li>
           </ul>
         </div>
         <div className={style.basket}>
          <FaRegHeart onClick={()=>navigate('/wishlist')}/>
           <SlBasketLoaded onClick={()=> navigate('/basket')}/>
+            <FaRegUserCircle onClick={()=> navigate('/admin')}/>
         </div>
         <div className={style.login}>
           <button onClick={()=> navigate('/login')}>Login</button>
@@ -56,7 +59,7 @@ const Header = () => {
             <li><a href="/">Home</a></li>
             <li><a href="/illustra">Illustrations</a></li>
             <li><a href="/3d">3D</a></li>
-            <li><a href="">Videos</a></li>
+            <li><a href="videos">Videos</a></li>
             <li><a href="/templates">Templates </a></li>
           </ul>
           <button>Login</button>
