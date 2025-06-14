@@ -10,7 +10,7 @@ import AdminPanel from "../pages/adminpanel/AdminPanel";
 import Basket from "../pages/basket/Basket";
 import WishlistPages from "../pages/wishlistpages/WishlistPages";
 import Try from "../pages/triIt/Try";
-import Videos from "../pages/videos/Videos";
+import Vectors from "../pages/vectors/Vectors";
 
 const Router = () => {
   return (
@@ -20,7 +20,7 @@ const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/illustra" element={<Illustrations />} />
-        <Route path="/videos" element={<Videos />} />
+        <Route path="/vectors" element={<Vectors />} />
         <Route path="/3d" element={<Dpages />} />
         <Route path="/templates" element={<Templates />} />
         <Route path="/admin" element={<AdminPanel />} />

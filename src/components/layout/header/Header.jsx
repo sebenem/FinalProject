@@ -10,18 +10,26 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 const Header = () => {
 
-  const navigate = useNavigate()
-      const [isOpen, setIsOpen] = React.useState(false)
-    const toggleDrawer = () => {
-        setIsOpen((prevState) => !prevState)
-    }
+  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = React.useState(false);
+  const toggleDrawer = () => {
+    setIsOpen((prevState) => !prevState);
+  };
 
-    
+  const handleWishlistClick = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/wishlist');
+    } else {
+      alert("Zəhmət olmasa əvvəlcə daxil olun.");
+      navigate('/login');
+    }
+  };
 
   return (
     <div className={style.container}>
       <div className={style.conTop}>
-        <div className={style.logo}>
+        <div className={style.logo} onClick={()=> navigate('/')}>
 <h2>St</h2>
 <h3>Adobe Stock</h3>
         </div>
@@ -30,7 +38,7 @@ const Header = () => {
            <li><a href="/">Home</a></li>
             <li><a href="/illustra">Illustrations</a></li>
             <li><a href="/3d">3D</a></li>
-            <li><a href="videos">Videos</a></li>
+            <li><a href="/vectors">Vectors</a></li>
             <li><a href="/templates">Templates </a></li>
           </ul>
         </div>
@@ -59,7 +67,7 @@ const Header = () => {
             <li><a href="/">Home</a></li>
             <li><a href="/illustra">Illustrations</a></li>
             <li><a href="/3d">3D</a></li>
-            <li><a href="videos">Videos</a></li>
+            <li><a href="/vectors">Vectors</a></li>
             <li><a href="/templates">Templates </a></li>
           </ul>
           <button>Login</button>

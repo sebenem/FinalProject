@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// ======================= THUNKS =======================
-
 // Login
 export const loginUser = createAsyncThunk('user/login', async (credentials, { rejectWithValue }) => {
     try {
@@ -28,7 +26,6 @@ export const registerUser = createAsyncThunk('user/register', async (newUser, { 
 // Logout
 export const logoutUser = createAsyncThunk('user/logout', async (_, { rejectWithValue }) => {
     try {
-        // əgər backend logout API varsa:
         await axios.post('http://localhost:5008/api/users/logout');
         localStorage.removeItem('user');
         return null;
@@ -48,14 +45,12 @@ export const getUser = createAsyncThunk('user/getUser', async (_, { rejectWithVa
     }
 });
 
-// ======================= SLICE =======================
-
- export const userSlice = createSlice({
+const userSlice = createSlice({
     name: 'user',
     initialState: {
-            user: JSON.parse(localStorage.getItem('user')) || null,
-            loading: false,
-            error: null,
+        user: JSON.parse(localStorage.getItem('user')) || null,
+        loading: false,
+        error: null,
     },
     reducers: {
         loadUserFromStorage: (state) => {
@@ -65,10 +60,9 @@ export const getUser = createAsyncThunk('user/getUser', async (_, { rejectWithVa
             }
         }
     },
-    extraReducers: builder => {
+    extraReducers: (builder) => {
         builder
-            // Login
-            .addCase(loginUser.pending, (state) => {
+            .addCase(loginUser.pending, state => {
                 state.loading = true;
                 state.error = null;
             })
@@ -80,9 +74,7 @@ export const getUser = createAsyncThunk('user/getUser', async (_, { rejectWithVa
                 state.loading = false;
                 state.error = action.payload;
             })
-
-            // Register
-            .addCase(registerUser.pending, (state) => {
+            .addCase(registerUser.pending, state => {
                 state.loading = true;
                 state.error = null;
             })
@@ -94,13 +86,11 @@ export const getUser = createAsyncThunk('user/getUser', async (_, { rejectWithVa
                 state.loading = false;
                 state.error = action.payload;
             })
-
-            // Logout
-            .addCase(logoutUser.pending, (state) => {
+            .addCase(logoutUser.pending, state => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(logoutUser.fulfilled, (state) => {
+            .addCase(logoutUser.fulfilled, state => {
                 state.loading = false;
                 state.user = null;
             })
@@ -108,9 +98,7 @@ export const getUser = createAsyncThunk('user/getUser', async (_, { rejectWithVa
                 state.loading = false;
                 state.error = action.payload;
             })
-
-            // Get User
-            .addCase(getUser.pending, (state) => {
+            .addCase(getUser.pending, state => {
                 state.loading = true;
                 state.error = null;
             })
@@ -127,3 +115,4 @@ export const getUser = createAsyncThunk('user/getUser', async (_, { rejectWithVa
 
 export const { loadUserFromStorage } = userSlice.actions;
 export default userSlice.reducer;
+

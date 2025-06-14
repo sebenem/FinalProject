@@ -42,7 +42,8 @@
       font-weight: 600;
     }
 
-    input {
+    input,
+    select {
       padding: 0.5rem;
       border: 1px solid #ccc;
       border-radius: 6px;
@@ -111,7 +112,8 @@
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
 
-  th, td {
+  th,
+  td {
     padding: 0.8rem;
     text-align: left;
     border-bottom: 1px solid #eaeaea;

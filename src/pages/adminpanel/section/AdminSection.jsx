@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import styles from './AdminSection.module.scss';
 import { useFormik } from 'formik';
 import { FaChevronDown, FaChevronUp, FaEdit } from 'react-icons/fa';
-import { addFormikThunk, deleteProductThunk, editProductThunk, getProductsThunk } from '../../../redux/reducers/productSlice';
+import {
+  addFormikThunk,
+  deleteProductThunk,
+  editProductThunk,
+  getProductsThunk
+} from '../../../redux/reducers/productSlice';
 
 const AdminSection = () => {
   const dispatch = useDispatch();
@@ -29,7 +33,9 @@ const AdminSection = () => {
   };
 
   const filteredProducts = products
-    ?.filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase()))
+    ?.filter((item) =>
+      item.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     ?.sort((a, b) => {
       if (sortBy === 'price') {
         return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
@@ -95,23 +101,56 @@ const AdminSection = () => {
     <div className={styles.admin}>
       <div className={styles.addSection}>
         <button className={styles.addButton} onClick={toggleFormVisibility}>
-          {editId ? 'Edit product' : 'Add new product'} {isFormVisible ? <FaChevronUp /> : <FaChevronDown />}
+          {editId ? 'Edit product' : 'Add new product'}{' '}
+          {isFormVisible ? <FaChevronUp /> : <FaChevronDown />}
         </button>
+
         {isFormVisible && (
           <form onSubmit={formik.handleSubmit} className={styles.form}>
             <label htmlFor="image">Image</label>
-            <input id="image" name="image" type="text" onChange={formik.handleChange} value={formik.values.image} />
+            <input
+              id="image"
+              name="image"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.image}
+            />
 
             <label htmlFor="title">Title</label>
-            <input id="title" name="title" type="text" onChange={formik.handleChange} value={formik.values.title} />
+            <input
+              id="title"
+              name="title"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.title}
+            />
 
             <label htmlFor="price">Price</label>
-            <input id="price" name="price" type="number" onChange={formik.handleChange} value={formik.values.price} />
+            <input
+              id="price"
+              name="price"
+              type="number"
+              onChange={formik.handleChange}
+              value={formik.values.price}
+            />
 
             <label htmlFor="category">Category</label>
-            <input id="category" name="category" type="text" onChange={formik.handleChange} value={formik.values.category} />
+            <select
+              id="category"
+              name="category"
+              onChange={formik.handleChange}
+              value={formik.values.category}
+            >
+              <option value="">Kateqoriya seçin</option>
+              <option value="3d">3D</option>
+              <option value="ilistrasiya">Illustration</option>
+              <option value="vector">Vector</option>
+              <option value="template">Templates</option>
+            </select>
 
-            <button type="submit" className={styles.submitButton}>{editId ? 'Yenilə' : 'Əlavə et'}</button>
+            <button type="submit" className={styles.submitButton}>
+              {editId ? 'Yenilə' : 'Əlavə et'}
+            </button>
           </form>
         )}
       </div>
@@ -125,11 +164,20 @@ const AdminSection = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <select className={styles.sortSelect} onChange={(e) => setSortBy(e.target.value)} value={sortBy}>
+        <select
+          className={styles.sortSelect}
+          onChange={(e) => setSortBy(e.target.value)}
+          value={sortBy}
+        >
           <option value="price">Qiymətə görə</option>
           <option value="title">Başlığa görə</option>
         </select>
-        <button className={styles.sortButton} onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}>
+        <button
+          className={styles.sortButton}
+          onClick={() =>
+            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+          }
+        >
           {getSortButtonLabel()}
         </button>
       </div>
@@ -146,12 +194,28 @@ const AdminSection = () => {
         <tbody>
           {filteredProducts?.map((item) => (
             <tr key={item._id}>
-              <td><img className={styles.productImage} src={item.image} alt={item.title} /></td>
+              <td>
+                <img
+                  className={styles.productImage}
+                  src={item.image}
+                  alt={item.title}
+                />
+              </td>
               <td>{item.title}</td>
               <td>{item.price} ₼</td>
               <td>
-                <button onClick={() => deleteProducts(item._id)} className={styles.deleteButton}>Sil</button>
-                <button onClick={() => handleEdit(item)} className={styles.editButton}><FaEdit /></button>
+                <button
+                  onClick={() => deleteProducts(item._id)}
+                  className={styles.deleteButton}
+                >
+                  Sil
+                </button>
+                <button
+                  onClick={() => handleEdit(item)}
+                  className={styles.editButton}
+                >
+                  <FaEdit />
+                </button>
               </td>
             </tr>
           ))}
