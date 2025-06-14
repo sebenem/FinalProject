@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./ProductsSection.module.scss";
 import { IoMdHeart } from "react-icons/io";
 import { FaRegEye } from "react-icons/fa";
@@ -9,11 +9,15 @@ import { getProductsThunk } from "../../../../redux/reducers/productSlice";
 import { postBasketThunk } from "../../../../redux/reducers/basketSlice";
 import { postWishlistThunk } from "../../../../redux/reducers/wishlistSlice";
 import { logoutUser } from "../../../../redux/reducers/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const ProductsSection = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     dispatch(getProductsThunk());
@@ -22,52 +26,41 @@ const ProductsSection = () => {
   const products = useSelector((state) => state.products.products);
   const error = useSelector((state) => state.products.error);
   const loading = useSelector((state) => state.products.loading);
-  const user = useSelector((state) => state.user.user); // İstifadəçinin login olub-olmaması
+  const user = useSelector((state) => state.user.user);
 
-  // 3D kateqoriyasına uyğun məhsulları filtr et
   const threeDProducts = products.filter(
     (product) => product.category?.toLowerCase() === "3d"
   );
 
-  // Basket-ə məhsul əlavə etmə funksiyası — login yoxlaması ilə
   const handleAddToBasket = (item) => {
     if (!user) {
-      alert("Zəhmət olmasa, məhsulu səbətə əlavə etmək üçün daxil olun.");
-      navigate("/login");
+      localStorage.setItem(
+        "redirectAfterLogin",
+        JSON.stringify({ type: "basket", item })
+      );
+      navigate("/login", { state: { from: location.pathname } });
       return;
     }
-    dispatch(
-      postBasketThunk({
-        image: item.image,
-        title: item.title,
-        price: item.price,
-        category: item.category,
-      })
-    );
+
+    dispatch(postBasketThunk(item));
   };
 
-  // Wishlist-ə məhsul əlavə etmə funksiyası — login yoxlaması ilə
   const handAddWishlist = (item) => {
     if (!user) {
-      alert("Zəhmət olmasa, məhsulu sevimlilərə əlavə etmək üçün daxil olun.");
-      navigate("/login");
+      localStorage.setItem(
+        "redirectAfterLogin",
+        JSON.stringify({ type: "wishlist", item })
+      );
+      navigate("/login", { state: { from: location.pathname } });
       return;
     }
-    dispatch(
-      postWishlistThunk({
-        image: item.image,
-        title: item.title,
-        price: item.price,
-        category: item.category,
-      })
-    );
+
+    dispatch(postWishlistThunk(item));
   };
 
-  // Logout funksiyası
-  const handleLogout = () => {
-    dispatch(logoutUser());
-    localStorage.removeItem("token");
-    navigate("/login");
+  const handleViewDetails = (item) => {
+    setSelectedItem(item);
+    setShowModal(true);
   };
 
   if (error) return <h2>Xəta var</h2>;
@@ -75,8 +68,6 @@ const ProductsSection = () => {
 
   return (
     <div className={style.container}>
-   
-
       <div className={style.carts}>
         {threeDProducts.length > 0 ? (
           threeDProducts.map((item) => (
@@ -94,7 +85,7 @@ const ProductsSection = () => {
                 <IoMdHeart onClick={() => handAddWishlist(item)} />
                 <HiMiniFolderArrowDown />
                 <LuShoppingCart onClick={() => handleAddToBasket(item)} />
-                <FaRegEye />
+                <FaRegEye onClick={() => handleViewDetails(item)} />
               </div>
             </div>
           ))
@@ -102,9 +93,24 @@ const ProductsSection = () => {
           <p>3D kateqoriyasına uyğun məhsul tapılmadı.</p>
         )}
       </div>
+
+      {/* Modal pəncərə */}
+      {showModal && selectedItem && (
+        <div className={style.modalOverlay} onClick={() => setShowModal(false)}>
+          <div className={style.modalContent} onClick={(e) => e.stopPropagation()}>
+            <img src={selectedItem.image} alt={selectedItem.title} />
+            <h3>{selectedItem.title}</h3>
+            <p>Qiymət: {selectedItem.price} ₼</p>
+            <p>Kategoriya: {selectedItem.category}</p>
+            <p>Haqqında: {selectedItem.description || "Ətraflı məlumat yoxdur."}</p>
+            <button onClick={() => setShowModal(false)}>Bağla</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default ProductsSection;
+
 

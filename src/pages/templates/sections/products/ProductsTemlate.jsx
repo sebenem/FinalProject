@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './ProductsTemlate.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { IoMdHeart } from "react-icons/io";
@@ -14,10 +14,13 @@ const ProductsTemlate = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
   const products = useSelector((state) => state.products.products);
   const error = useSelector((state) => state.products.error);
   const loading = useSelector((state) => state.products.loading);
-  const user = useSelector((state) => state.user.user); // Login olub olmadığını yoxlamaq üçün
+  const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
     dispatch(getProductsThunk());
@@ -41,7 +44,7 @@ const ProductsTemlate = () => {
     }));
   };
 
-  const handAddWishlist = (item) => {
+  const handleAddWishlist = (item) => {
     if (!user) {
       navigate('/login');
       return;
@@ -53,6 +56,11 @@ const ProductsTemlate = () => {
       price: item.price,
       category: item.category
     }));
+  };
+
+  const handleViewDetails = (item) => {
+    setSelectedItem(item);
+    setShowModal(true);
   };
 
   if (error) return <h2>Xəta var</h2>;
@@ -74,10 +82,10 @@ const ProductsTemlate = () => {
               </div>
 
               <div className={style.icon}>
-                <IoMdHeart onClick={() => handAddWishlist(item)} />
+                <IoMdHeart onClick={() => handleAddWishlist(item)} />
                 <HiMiniFolderArrowDown />
                 <LuShoppingCart onClick={() => handleAddToBasket(item)} />
-                <FaRegEye />
+                <FaRegEye onClick={() => handleViewDetails(item)} />
               </div>
             </div>
           ))
@@ -85,9 +93,22 @@ const ProductsTemlate = () => {
           <p>Template kateqoriyasına uyğun məhsul tapılmadı.</p>
         )}
       </div>
+
+      {/* Modal pəncərə */}
+      {showModal && selectedItem && (
+        <div className={style.modalOverlay} onClick={() => setShowModal(false)}>
+          <div className={style.modalContent} onClick={(e) => e.stopPropagation()}>
+            <img src={selectedItem.image} alt={selectedItem.title} />
+            <h3>{selectedItem.title}</h3>
+            <p>Qiymət: {selectedItem.price} ₼</p>
+            <p>Kategoriya: {selectedItem.category}</p>
+            <p>Haqqında: {selectedItem.description || "Ətraflı məlumat yoxdur."}</p>
+            <button onClick={() => setShowModal(false)}>Bağla</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default ProductsTemlate;
-

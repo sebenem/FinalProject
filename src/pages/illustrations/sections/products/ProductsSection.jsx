@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./ProductsSection.module.scss";
 import { IoMdHeart } from "react-icons/io";
 import { FaRegEye } from "react-icons/fa";
@@ -18,7 +18,10 @@ const ProductsSection = () => {
   const products = useSelector((state) => state.products.products);
   const error = useSelector((state) => state.products.error);
   const loading = useSelector((state) => state.products.loading);
-  const user = useSelector((state) => state.user.user);  // <-- DÜZGÜN BURADA `user`
+  const user = useSelector((state) => state.user.user);
+
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   // Məhsulları yüklə
   useEffect(() => {
@@ -47,7 +50,6 @@ const ProductsSection = () => {
 
   const handleAddToBasket = (item) => {
     if (!user || Object.keys(user).length === 0) {
-      alert("Zəhmət olmasa, əvvəlcə daxil olun.");
       localStorage.setItem(
         "redirectAfterLogin",
         JSON.stringify({ type: "basket", item })
@@ -61,7 +63,6 @@ const ProductsSection = () => {
 
   const handleAddWishlist = (item) => {
     if (!user || Object.keys(user).length === 0) {
-      alert("Zəhmət olmasa, əvvəlcə daxil olun.");
       localStorage.setItem(
         "redirectAfterLogin",
         JSON.stringify({ type: "wishlist", item })
@@ -71,6 +72,11 @@ const ProductsSection = () => {
     }
 
     dispatch(postWishlistThunk(item));
+  };
+
+  const handleViewDetails = (item) => {
+    setSelectedItem(item);
+    setShowModal(true);
   };
 
   if (error) return <h2>Xəta var</h2>;
@@ -95,7 +101,7 @@ const ProductsSection = () => {
                 <IoMdHeart onClick={() => handleAddWishlist(item)} />
                 <HiMiniFolderArrowDown />
                 <LuShoppingCart onClick={() => handleAddToBasket(item)} />
-                <FaRegEye />
+                <FaRegEye onClick={() => handleViewDetails(item)} />
               </div>
             </div>
           ))
@@ -103,8 +109,24 @@ const ProductsSection = () => {
           <p>Bu kateqoriyaya uyğun məhsul tapılmadı.</p>
         )}
       </div>
+
+      {/* Modal */}
+      {showModal && selectedItem && (
+        <div className={style.modalOverlay} onClick={() => setShowModal(false)}>
+          <div className={style.modalContent} onClick={(e) => e.stopPropagation()}>
+            <img src={selectedItem.image} alt={selectedItem.title} />
+            <h3>{selectedItem.title}</h3>
+            <p>Qiymət: {selectedItem.price} ₼</p>
+            <p>Kategoriya: {selectedItem.category}</p>
+            <p>Haqqında: {selectedItem.description || "Ətraflı məlumat yoxdur."}</p>
+            <button onClick={() => setShowModal(false)}>Bağla</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default ProductsSection;
+
+
