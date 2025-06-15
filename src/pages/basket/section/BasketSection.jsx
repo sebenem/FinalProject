@@ -6,6 +6,7 @@ import { FaRegEye } from "react-icons/fa";
 import { HiMiniFolderArrowDown } from "react-icons/hi2";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { getBasketThunk, deleteBasketThunk } from '../../../redux/reducers/basketSlice';
+import { postWishlistThunk } from '../../../redux/reducers/wishlistSlice';
 
 const BasketSection = () => {
   const dispatch = useDispatch();
@@ -77,7 +78,8 @@ const BasketSection = () => {
             </div>
 
             <div className={style.icon}>
-              <IoMdHeart />
+          <IoMdHeart onClick={() => dispatch(postWishlistThunk(item))} />
+
               <HiMiniFolderArrowDown />
               <RiDeleteBin5Fill
                 onClick={() => dispatch(deleteBasketThunk(item._id))}
