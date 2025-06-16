@@ -15,86 +15,50 @@ import {
   getAllUsers,
   deleteUser,
 } from '../../../redux/reducers/userSlice';
+
 import AdminCardProduct from '../../../components/cards/admincard/AdminCardProduct';
 import AdminCardUser from '../../../components/cards/admincard/AdminCardUser';
+
 const AdminSection = () => {
   const dispatch = useDispatch();
 
-  const products = useSelector((state) => state.products.products);
-  const loadingProducts = useSelector((state) => state.products.loading);
-  const errorProducts = useSelector((state) => state.products.error);
-
-  const users = useSelector((state) => state.user.allUsers);
-  const loadingUsers = useSelector((state) => state.user.loading);
-  const errorUsers = useSelector((state) => state.user.error);
+  const { products, loading: loadingProducts, error: errorProducts } =
+    useSelector((state) => state.products);
+  const { allUsers: users, loading: loadingUsers, error: errorUsers } =
+    useSelector((state) => state.user);
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortOrder, setSortOrder] = useState('asc');
   const [sortBy, setSortBy] = useState('price');
+  const [sortOrder, setSortOrder] = useState('asc');
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [editId, setEditId] = useState(null);
 
-  const toggleFormVisibility = () => {
-    setIsFormVisible(!isFormVisible);
+  // Load products & users
+  useEffect(() => {
+    dispatch(getProductsThunk());
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+  // Add / Edit formik
+  const formik = useFormik({
+    initialValues: { image: '', title: '', price: '', category: '' },
+    onSubmit: async (values, { resetForm }) => {
+      if (editId) {
+        await dispatch(editProductThunk({ id: editId, updatedProduct: values }));
+      } else {
+        await dispatch(addFormikThunk(values));
+      }
+      resetForm();
+      setEditId(null);
+      setIsFormVisible(false);
+    },
+  });
+
+  const toggleForm = () => {
+    setIsFormVisible((v) => !v);
     setEditId(null);
     formik.resetForm();
   };
-
-  const deleteProducts = (id) => {
-    dispatch(deleteProductThunk(id));
-    dispatch()
-  };
-
-  const handleDeleteUser = (id) => {
-    dispatch(deleteUser(id));
-  };
-
-  const filteredProducts = products
-    ?.filter((item) =>
-      item.title.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    ?.sort((a, b) => {
-      if (sortBy === 'price') {
-        return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
-      } else if (sortBy === 'title') {
-        return sortOrder === 'asc'
-          ? a.title.localeCompare(b.title)
-          : b.title.localeCompare(a.title);
-      }
-      return 0;
-    });
-
-  const getSortButtonLabel = () => {
-    if (sortBy === 'price') {
-      return sortOrder === 'asc' ? 'Ən ucuzdan bahaya' : 'Ən bahadan ucuza';
-    } else if (sortBy === 'title') {
-      return sortOrder === 'asc' ? 'A-dan Z-yə' : 'Z-dən A-ya';
-    }
-    return 'Sırala';
-  };
-
-  const formik = useFormik({
-    initialValues: {
-      image: '',
-      title: '',
-      price: '',
-      category: '',
-    },
-    onSubmit: async (values, { resetForm }) => {
-      try {
-        if (editId) {
-          await dispatch(editProductThunk({ id: editId, updatedProduct: values }));
-        } else {
-          await dispatch(addFormikThunk(values));
-        }
-        resetForm();
-        setEditId(null);
-        setIsFormVisible(false);
-      } catch (error) {
-        console.error('Xəta:', error);
-      }
-    },
-  });
 
   const handleEdit = (product) => {
     setEditId(product._id);
@@ -107,84 +71,98 @@ const AdminSection = () => {
     setIsFormVisible(true);
   };
 
-  useEffect(() => {
-    dispatch(getProductsThunk());
-    dispatch(getAllUsers());
-  }, [dispatch]);
+  // Combined delete (server + client slices)
+  const deleteProducts = (id) => {
+    dispatch(deleteProductThunk(id));
+  };
 
-  if (loadingProducts || loadingUsers) return <p className={styles.loading}>Yüklənir...</p>;
-  if (errorProducts || errorUsers) return <p className={styles.error}>Xəta baş verdi...</p>;
+  const handleDeleteUser = (id) => {
+    dispatch(deleteUser(id));
+  };
+
+  // Filter & sort
+  const filteredProducts = products
+    .filter((p) =>
+      p.title.toLowerCase().includes(searchTerm.trim().toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortBy === 'price') {
+        return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
+      }
+      if (sortBy === 'title') {
+        return sortOrder === 'asc'
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title);
+      }
+      return 0;
+    });
+
+  if (loadingProducts || loadingUsers)
+    return <p className={styles.loading}>Yüklənir...</p>;
+  if (errorProducts || errorUsers)
+    return <p className={styles.error}>Xəta baş verdi...</p>;
 
   return (
     <div className={styles.admin}>
-      {/* Product add/edit section */}
+      {/* Add/Edit Section */}
       <div className={styles.addSection}>
-        <button className={styles.addButton} onClick={toggleFormVisibility}>
-          {editId ? 'Edit product' : 'Add new product'}{' '}
+        <button onClick={toggleForm} className={styles.addButton}>
+          {editId ? 'Məhsulu redaktə et' : 'Yeni məhsul əlavə et'}{' '}
           {isFormVisible ? <FaChevronUp /> : <FaChevronDown />}
         </button>
-
         {isFormVisible && (
-         <form onSubmit={formik.handleSubmit} className={styles.form}>
-  <label htmlFor="image">Image</label>
-  <input
-    id="image"
-    name="image"
-    type="text"
-    onChange={formik.handleChange}
-    onBlur={formik.handleBlur}
-    value={formik.values.image}
-  />
-
-  <label htmlFor="title">Title</label>
-  <input
-    id="title"
-    name="title"
-    type="text"
-    onChange={formik.handleChange}
-    onBlur={formik.handleBlur}
-    value={formik.values.title}
-  />
-
-  <label htmlFor="price">Price</label>
-  <input
-    id="price"
-    name="price"
-    type="number"
-    onChange={formik.handleChange}
-    onBlur={formik.handleBlur}
-    value={formik.values.price}
-  />
-
-  <label htmlFor="category">Category</label>
-  <select
-    id="category"
-    name="category"
-    onChange={formik.handleChange}
-    onBlur={formik.handleBlur}
-    value={formik.values.category}
-  >
-    <option value="">Kateqoriya seçin</option>
-    <option value="3d">3D</option>
-    <option value="ilistrasiya">Illustration</option>
-    <option value="vector">Vector</option>
-    <option value="template">Templates</option>
-  </select>
-
-  <button type="submit" className={styles.submitButton}>
-    {editId ? 'Yenilə' : 'Əlavə et'}
-  </button>
-</form>
-
+          <form onSubmit={formik.handleSubmit} className={styles.form}>
+            <label>Image URL</label>
+            <input name="image" value={formik.values.image} onChange={formik.handleChange} />
+            <label>Title</label>
+            <input name="title" value={formik.values.title} onChange={formik.handleChange} />
+            <label>Price</label>
+            <input
+              name="price"
+              type="number"
+              value={formik.values.price}
+              onChange={formik.handleChange}
+            />
+            <label>Category</label>
+            <select
+              name="category"
+              value={formik.values.category}
+              onChange={formik.handleChange}
+            >
+              <option value="">Seçin</option>
+              <option value="3d">3D</option>
+              <option value="illustration">Illustration</option>
+              <option value="vector">Vector</option>
+              <option value="template">Template</option>
+            </select>
+            <button type="submit" className={styles.submitButton}>
+              {editId ? 'Yenilə' : 'Əlavə et'}
+            </button>
+          </form>
         )}
       </div>
 
-      {/* Product control panel */}
+      {/* Control Panel (Search + Sort) */}
       <div className={styles.controlPanel}>
-        {/* ...search and sort inputs... */}
+        <input
+          type="text"
+          placeholder="Məhsul axtar..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={styles.searchInput}
+        />
+        <button onClick={() => setSortBy('price')}>
+          {sortBy === 'price' ? (sortOrder === 'asc' ? 'Ucuz→Bahalı' : 'Bahalı→Ucuz') : 'Qiymət'}
+        </button>
+        <button onClick={() => setSortBy('title')}>
+          {sortBy === 'title' ? (sortOrder === 'asc' ? 'A→Z' : 'Z→A') : 'Başlıq'}
+        </button>
+        <button onClick={() => setSortOrder((o) => (o === 'asc' ? 'desc' : 'asc'))}>
+          {sortOrder === 'asc' ? 'Artan' : 'Azalan'}
+        </button>
       </div>
 
-      {/* Products table */}
+      {/* Products Table */}
       <table className={styles.productTable}>
         <thead>
           <tr>
@@ -195,19 +173,19 @@ const AdminSection = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredProducts?.map((item) => (
+          {filteredProducts.map((item) => (
             <AdminCardProduct
               key={item._id}
               product={item}
-              onDelete={deleteProducts}
-              onEdit={handleEdit}
+              onDelete={() => deleteProducts(item._id)}
+              onEdit={() => handleEdit(item)}
             />
           ))}
         </tbody>
       </table>
 
-      {/* Users table */}
-      <h2>İstifadəçilər siyahısı (Admin)</h2>
+      {/* Users Table */}
+      <h2>İstifadəçilər (Admin)</h2>
       <table className={styles.userTable}>
         <thead>
           <tr>
@@ -218,8 +196,12 @@ const AdminSection = () => {
           </tr>
         </thead>
         <tbody>
-          {users?.map((user) => (
-            <AdminCardUser key={user._id} user={user} onDelete={handleDeleteUser} />
+          {users.map((u) => (
+            <AdminCardUser
+              key={u._id}
+              user={u}
+              onDelete={() => handleDeleteUser(u._id)}
+            />
           ))}
         </tbody>
       </table>

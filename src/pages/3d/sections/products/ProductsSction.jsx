@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import style from "./ProductsSection.module.scss";
 import { IoMdHeart } from "react-icons/io";
@@ -8,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductsThunk } from "../../../../redux/reducers/productSlice";
 import { postBasketThunk } from "../../../../redux/reducers/basketSlice";
 import { postWishlistThunk } from "../../../../redux/reducers/wishlistSlice";
-import { logoutUser } from "../../../../redux/reducers/userSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const ProductsSection = () => {
@@ -28,9 +28,17 @@ const ProductsSection = () => {
   const loading = useSelector((state) => state.products.loading);
   const user = useSelector((state) => state.user.user);
 
-  const threeDProducts = products.filter(
-    (product) => product.category?.toLowerCase() === "3d"
-  );
+  // URL-dən query parametrini al
+  const query = new URLSearchParams(location.search).get("query")?.toLowerCase() || "";
+
+  // 3D məhsulları süz və query-ə əsasən axtar
+  const filteredProducts = products.filter((product) => {
+    const is3D = product.category?.toLowerCase() === "3d";
+    const matchesQuery =
+      product.title?.toLowerCase().includes(query) ||
+      product.color?.toLowerCase().includes(query);
+    return is3D && (query ? matchesQuery : true);
+  });
 
   const handleAddToBasket = (item) => {
     if (!user) {
@@ -45,7 +53,7 @@ const ProductsSection = () => {
     dispatch(postBasketThunk(item));
   };
 
-  const handAddWishlist = (item) => {
+  const handleAddWishlist = (item) => {
     if (!user) {
       localStorage.setItem(
         "redirectAfterLogin",
@@ -69,8 +77,8 @@ const ProductsSection = () => {
   return (
     <div className={style.container}>
       <div className={style.carts}>
-        {threeDProducts.length > 0 ? (
-          threeDProducts.map((item) => (
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((item) => (
             <div className={style.cart} key={item._id}>
               <div className={style.image}>
                 <img src={item.image} alt={item.title} />
@@ -82,7 +90,7 @@ const ProductsSection = () => {
               </div>
 
               <div className={style.icon}>
-                <IoMdHeart onClick={() => handAddWishlist(item)} />
+                <IoMdHeart onClick={() => handleAddWishlist(item)} />
                 <HiMiniFolderArrowDown />
                 <LuShoppingCart onClick={() => handleAddToBasket(item)} />
                 <FaRegEye onClick={() => handleViewDetails(item)} />
@@ -90,11 +98,11 @@ const ProductsSection = () => {
             </div>
           ))
         ) : (
-          <p>3D kateqoriyasına uyğun məhsul tapılmadı.</p>
+          <p>Uyğun məhsul tapılmadı.</p>
         )}
       </div>
 
-      {/* Modal pəncərə */}
+      {/* Modal */}
       {showModal && selectedItem && (
         <div className={style.modalOverlay} onClick={() => setShowModal(false)}>
           <div className={style.modalContent} onClick={(e) => e.stopPropagation()}>
@@ -112,5 +120,7 @@ const ProductsSection = () => {
 };
 
 export default ProductsSection;
+
+
 
 
