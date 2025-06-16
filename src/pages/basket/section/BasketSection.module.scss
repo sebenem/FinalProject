@@ -1,33 +1,31 @@
 .container {
   padding: 2rem;
-  background-color: #f9f9fb;
+  background-color: #f5f7fa;
   min-height: 100vh;
 
   .carts {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 2rem;
 
     .cart {
-      background-color: #fff;
-      border-radius: 16px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-      overflow: hidden;
+      background-color: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      transition: all 0.3s ease;
 
       &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        transform: translateY(-6px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
       }
 
       .image {
         width: 100%;
         height: 180px;
         overflow: hidden;
-        border-bottom: 1px solid #eee;
 
         img {
           width: 100%;
@@ -47,68 +45,119 @@
         h3 {
           font-size: 1.1rem;
           font-weight: 600;
-          margin-bottom: 0.5rem;
-          color: #333;
+          color: #222;
         }
 
         p {
+          margin-top: 0.4rem;
           font-size: 1rem;
           color: #666;
         }
       }
 
+    .quantityControl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+  padding: 0.5rem;
+
+  button {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+    &:hover {
+      background-color: #e0e0e0;
+      transform: scale(1.1);
+    }
+
+    &:active {
+      background-color: #d0d0d0;
+      transform: scale(0.95);
+    }
+  }
+
+  span {
+    min-width: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: #444;
+    background-color: #fafafa;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+  }
+}
+
+
       .icon {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-evenly;
         align-items: center;
         padding: 0.75rem 1rem;
-        border-top: 1px solid #f0f0f0;
-        gap: 1rem;
-
+        border-top: 1px solid #eee;
+.delete{
+  color: red;
+}
         svg {
           font-size: 1.4rem;
-          cursor: pointer;
           color: #888;
-          transition: color 0.3s ease, transform 0.2s ease;
+          transition: all 0.3s ease;
+          cursor: pointer;
+
 
           &:hover {
-            transform: scale(1.2);
+            transform: scale(1.15);
           }
 
           &:nth-of-type(1):hover {
-            color: #ff4081; // heart rəngi
+            color: #e91e63;
           }
 
           &:nth-of-type(2):hover {
-            color: #3f51b5; // download rəngi
+            color: #3f51b5;
           }
 
           &:nth-of-type(3):hover {
-            color: #d43f3f; // delete rəngi
+            color: #f44336;
           }
 
           &:nth-of-type(4):hover {
-            color: #4caf50; // view rəngi
+            color: #4caf50;
           }
+        }
+      }
+
+      .payButton {
+        margin: 1rem;
+        padding: 0.6rem 1rem;
+        background-color: #00b894;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #019875;
         }
       }
     }
   }
-  .payButton {
-  margin: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #4caf50;
-  border: none;
-  color: white;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #45a049;
-  }
-}
 
 .modalOverlay {
   position: fixed;
@@ -116,95 +165,123 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 9999;
   padding: 1rem;
-  overflow-y: auto;
 }
 
 .modalContent {
-  background: white;
+  background-color: #fff;
   border-radius: 12px;
   max-width: 400px;
   width: 100%;
-  padding: 2rem;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
   position: relative;
+  text-align: center;
 
-  h2 {
-    margin-bottom: 1rem;
-  }
-
-  p {
-    margin-bottom: 1.5rem;
+  img {
+    margin: 1rem 0;
+    border-radius: 8px;
   }
 }
 
-.paymentForm {
-  display: flex;
-  flex-direction: column;
+.closeButton {
+  background-color: #d43f3f;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
 
-  label {
-    margin-bottom: 1rem;
-    font-weight: 600;
-    color: #333;
+  &:hover {
+    background-color: #b93232;
+  }
+}
 
-    input {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.3rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-      box-sizing: border-box;
+  .modalContent {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
 
-      &:focus {
-        border-color: #4caf50;
-        outline: none;
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #444;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .paymentForm {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin-bottom: 1rem;
+      font-weight: 500;
+      font-size: 0.95rem;
+
+      input {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        margin-top: 0.3rem;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        transition: border-color 0.2s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #00b894;
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1rem;
+
+      .confirmButton {
+        background-color: #00b894;
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #019875;
+        }
+      }
+
+      .cancelButton {
+        background-color: #d63031;
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #c0392b;
+        }
       }
     }
   }
-
-  .buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-  }
-
-  .confirmButton {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #45a049;
-    }
-  }
-
-  .cancelButton {
-    background-color: #d43f3f;
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #b93232;
-    }
-  }
 }
 
-}
 
 

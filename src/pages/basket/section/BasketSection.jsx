@@ -5,8 +5,9 @@ import { IoMdHeart } from "react-icons/io";
 import { FaRegEye } from "react-icons/fa";
 import { HiMiniFolderArrowDown } from "react-icons/hi2";
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import { getBasketThunk, deleteBasketThunk } from '../../../redux/reducers/basketSlice';
+import { getBasketThunk, deleteBasketThunk, updateQuantityThunk } from '../../../redux/reducers/basketSlice';
 import { postWishlistThunk } from '../../../redux/reducers/wishlistSlice';
+// import { useNavigate } from 'react-router-dom'; // Navigate lazım deyil, modal olacaq
 
 const BasketSection = () => {
   const dispatch = useDispatch();
@@ -17,14 +18,20 @@ const BasketSection = () => {
 
   const basket = useSelector((state) => state.basket.basket) || [];
 
+  // Ödəniş modalı state-ləri
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+
+  // Məhsul detallar modalı üçün state
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [detailsItem, setDetailsItem] = useState(null);
 
   // Ödəniş formu state-ləri
   const [cardNumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
   const [cvv, setCvv] = useState('');
 
+  // Ödəniş modalını aç
   const openPaymentModal = (item) => {
     setSelectedItem(item);
     setShowPaymentModal(true);
@@ -38,10 +45,21 @@ const BasketSection = () => {
     setCvv('');
   };
 
+  // Məhsul detallar modalını aç
+  const openDetailsModal = (item) => {
+    setDetailsItem(item);
+    setShowDetailsModal(true);
+  };
+
+  const closeDetailsModal = () => {
+    setShowDetailsModal(false);
+    setDetailsItem(null);
+  };
+
+  // Ödəniş formunu submit et
   const handlePaymentSubmit = (e) => {
     e.preventDefault();
 
-    // Sadə validasiya (sən lazım bildiyin qədər genişləndirə bilərsən)
     if (cardNumber.length !== 16) {
       alert('Kart nömrəsi 16 rəqəmdən ibarət olmalıdır');
       return;
@@ -55,7 +73,6 @@ const BasketSection = () => {
       return;
     }
 
-    // Burada real ödəniş prosesi olacaq
     console.log('Ödəniş məlumatları:', { cardNumber, expiry, cvv, product: selectedItem });
 
     alert(`Ödəniş uğurla həyata keçirildi: ${selectedItem.title}`);
@@ -77,15 +94,32 @@ const BasketSection = () => {
               <p>{item.price} ₼</p>
             </div>
 
+            <div className={style.quantityControl}>
+              <button onClick={() => {
+                if (item.quantity > 1) {
+                  dispatch(updateQuantityThunk({ id: item._id, quantity: item.quantity - 1 }));
+                }
+              }}>–</button>
+
+              <span>{item.quantity || 1}</span>
+
+              <button onClick={() => {
+                dispatch(updateQuantityThunk({ id: item._id, quantity: (item.quantity || 1) + 1 }));
+              }}>+</button>
+            </div>
+
             <div className={style.icon}>
-          <IoMdHeart onClick={() => dispatch(postWishlistThunk(item))} />
+              <IoMdHeart onClick={() => dispatch(postWishlistThunk(item))} style={{ cursor: 'pointer' }} />
 
               <HiMiniFolderArrowDown />
               <RiDeleteBin5Fill
                 onClick={() => dispatch(deleteBasketThunk(item._id))}
-                style={{ cursor: "pointer", color: "red" }}
+               className={style.delete}
               />
-              <FaRegEye />
+              <FaRegEye
+                onClick={() => openDetailsModal(item)}
+               
+              />
             </div>
 
             <button className={style.payButton} onClick={() => openPaymentModal(item)}>
@@ -95,6 +129,21 @@ const BasketSection = () => {
         ))}
       </div>
 
+      {/* Məhsul Detallar Modalı */}
+      {showDetailsModal && detailsItem && (
+        <div className={style.modalOverlay} onClick={closeDetailsModal}>
+          <div className={style.modalContent} onClick={e => e.stopPropagation()}>
+            <h2>{detailsItem.title}</h2>
+            <img src={detailsItem.image} alt={detailsItem.title} style={{ maxWidth: '100%', borderRadius: '8px', margin: '1rem 0' }} />
+            <p>Qiymət: {detailsItem.price} ₼</p>
+            <p>{detailsItem.description || 'Məhsul haqqında əlavə məlumat yoxdur.'}</p>
+
+            <button onClick={closeDetailsModal} className={style.closeButton}>Bağla</button>
+          </div>
+        </div>
+      )}
+
+      {/* Ödəniş Modalı */}
       {showPaymentModal && selectedItem && (
         <div className={style.modalOverlay} onClick={closePaymentModal}>
           <div className={style.modalContent} onClick={e => e.stopPropagation()}>
@@ -151,4 +200,5 @@ const BasketSection = () => {
 };
 
 export default BasketSection;
+
 

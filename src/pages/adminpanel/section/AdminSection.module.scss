@@ -4,9 +4,8 @@
   background-color: #f7f9fb;
   color: #333;
 
-  h1 {
+  h1, h2 {
     margin-bottom: 1rem;
-    font-size: 2rem;
     color: #222;
   }
 }
@@ -40,6 +39,7 @@
     label {
       grid-column: span 2;
       font-weight: 600;
+      color: #444;
     }
 
     input,
@@ -59,7 +59,7 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: background-color 0.3s;
 
       &:hover {
         background-color: #218838;
@@ -74,6 +74,10 @@
   flex-wrap: wrap;
   gap: 1rem;
   align-items: center;
+
+  h1 {
+    flex-basis: 100%;
+  }
 
   .searchInput {
     padding: 0.5rem;
@@ -97,6 +101,7 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    transition: background-color 0.3s;
 
     &:hover {
       background-color: #e0a800;
@@ -104,19 +109,22 @@
   }
 }
 
-.productTable {
+.productTable, .userTable {
   width: 100%;
   border-collapse: collapse;
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
 
   th,
   td {
     padding: 0.8rem;
     text-align: left;
     border-bottom: 1px solid #eaeaea;
+    font-size: 1rem;
+    color: #333;
   }
 
   th {
@@ -124,11 +132,8 @@
     font-weight: 600;
   }
 
-  .productImage {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 4px;
+  tbody tr:hover {
+    background-color: #f9faff;
   }
 
   .deleteButton {
@@ -139,6 +144,7 @@
     margin-right: 0.5rem;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
 
     &:hover {
       background-color: #c82333;
@@ -152,6 +158,7 @@
     padding: 0.4rem 0.8rem;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
 
     &:hover {
       background-color: #138496;
@@ -159,14 +166,23 @@
   }
 }
 
+.productImage {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
 .loading {
   text-align: center;
   font-size: 1.2rem;
   color: #555;
+  margin-top: 2rem;
 }
 
 .error {
   text-align: center;
   font-size: 1.2rem;
   color: red;
+  margin-top: 2rem;
 }

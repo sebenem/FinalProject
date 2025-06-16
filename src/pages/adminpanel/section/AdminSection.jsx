@@ -3,35 +3,52 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './AdminSection.module.scss';
 import { useFormik } from 'formik';
 import { FaChevronDown, FaChevronUp, FaEdit } from 'react-icons/fa';
+
 import {
   addFormikThunk,
   deleteProductThunk,
   editProductThunk,
-  getProductsThunk
+  getProductsThunk,
 } from '../../../redux/reducers/productSlice';
+
+import {
+  getAllUsers,
+  deleteUser,
+} from '../../../redux/reducers/userSlice';
 
 const AdminSection = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products.products);
-  const loading = useSelector((state) => state.products.loading);
-  const error = useSelector((state) => state.products.error);
 
+  // Products state
+  const products = useSelector((state) => state.products.products);
+  const loadingProducts = useSelector((state) => state.products.loading);
+  const errorProducts = useSelector((state) => state.products.error);
+
+  // Users state
+  const users = useSelector((state) => state.user.allUsers);
+  const loadingUsers = useSelector((state) => state.user.loading);
+  const errorUsers = useSelector((state) => state.user.error);
+
+  // Local UI states
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
   const [sortBy, setSortBy] = useState('price');
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [editId, setEditId] = useState(null);
 
+  // Toggle form visibility
   const toggleFormVisibility = () => {
     setIsFormVisible(!isFormVisible);
     setEditId(null);
     formik.resetForm();
   };
 
+  // Delete product handler
   const deleteProducts = (id) => {
     dispatch(deleteProductThunk(id));
   };
 
+  // Filter and sort products
   const filteredProducts = products
     ?.filter((item) =>
       item.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -47,6 +64,7 @@ const AdminSection = () => {
       return 0;
     });
 
+  // Sort button label
   const getSortButtonLabel = () => {
     if (sortBy === 'price') {
       return sortOrder === 'asc' ? 'Ən ucuzdan bahaya' : 'Ən bahadan ucuza';
@@ -56,6 +74,7 @@ const AdminSection = () => {
     return 'Sırala';
   };
 
+  // Formik form
   const formik = useFormik({
     initialValues: {
       image: '',
@@ -79,6 +98,7 @@ const AdminSection = () => {
     },
   });
 
+  // Edit product handler
   const handleEdit = (product) => {
     setEditId(product._id);
     formik.setValues({
@@ -90,15 +110,23 @@ const AdminSection = () => {
     setIsFormVisible(true);
   };
 
+  // Delete user handler
+  const handleDeleteUser = (id) => {
+    dispatch(deleteUser(id));
+  };
+
+  // On component mount load products and users
   useEffect(() => {
     dispatch(getProductsThunk());
+    dispatch(getAllUsers());
   }, [dispatch]);
 
-  if (loading) return <p className={styles.loading}>Yüklənir...</p>;
-  if (error) return <p className={styles.error}>Xəta baş verdi...</p>;
+  if (loadingProducts || loadingUsers) return <p className={styles.loading}>Yüklənir...</p>;
+  if (errorProducts || errorUsers) return <p className={styles.error}>Xəta baş verdi...</p>;
 
   return (
     <div className={styles.admin}>
+      {/* Product add/edit section */}
       <div className={styles.addSection}>
         <button className={styles.addButton} onClick={toggleFormVisibility}>
           {editId ? 'Edit product' : 'Add new product'}{' '}
@@ -155,6 +183,7 @@ const AdminSection = () => {
         )}
       </div>
 
+      {/* Product control panel */}
       <div className={styles.controlPanel}>
         <h1>Admin Panel</h1>
         <input
@@ -174,14 +203,13 @@ const AdminSection = () => {
         </select>
         <button
           className={styles.sortButton}
-          onClick={() =>
-            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
-          }
+          onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
         >
           {getSortButtonLabel()}
         </button>
       </div>
 
+      {/* Products table */}
       <table className={styles.productTable}>
         <thead>
           <tr>
@@ -195,11 +223,7 @@ const AdminSection = () => {
           {filteredProducts?.map((item) => (
             <tr key={item._id}>
               <td>
-                <img
-                  className={styles.productImage}
-                  src={item.image}
-                  alt={item.title}
-                />
+                <img className={styles.productImage} src={item.image} alt={item.title} />
               </td>
               <td>{item.title}</td>
               <td>{item.price} ₼</td>
@@ -210,11 +234,38 @@ const AdminSection = () => {
                 >
                   Sil
                 </button>
-                <button
-                  onClick={() => handleEdit(item)}
-                  className={styles.editButton}
-                >
+                <button onClick={() => handleEdit(item)} className={styles.editButton}>
                   <FaEdit />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Users table */}
+      <h2>İstifadəçilər siyahısı (Admin)</h2>
+      <table className={styles.userTable}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Ad</th>
+            <th>Email</th>
+            <th>Əməliyyat</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users?.map((user) => (
+            <tr key={user._id}>
+              <td>{user._id}</td>
+              <td>{user.name || user.username || 'Ad yoxdur'}</td>
+              <td>{user.email}</td>
+              <td>
+                <button
+                  onClick={() => handleDeleteUser(user._id)}
+                  className={styles.deleteButton}
+                >
+                  Sil
                 </button>
               </td>
             </tr>
