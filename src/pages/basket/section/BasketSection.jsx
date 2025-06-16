@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import style from './BasketSection.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { IoMdHeart } from "react-icons/io";
-import { FaRegEye } from "react-icons/fa";
-import { HiMiniFolderArrowDown } from "react-icons/hi2";
-import { RiDeleteBin5Fill } from "react-icons/ri";
-import { getBasketThunk, deleteBasketThunk, updateQuantityThunk } from '../../../redux/reducers/basketSlice';
-import { postWishlistThunk } from '../../../redux/reducers/wishlistSlice';
-// import { useNavigate } from 'react-router-dom'; // Navigate lazım deyil, modal olacaq
+import { getBasketThunk } from '../../../redux/reducers/basketSlice';
+import BasketCard from '../../../components/cards/basketcard/BasketCard';
+
 
 const BasketSection = () => {
   const dispatch = useDispatch();
@@ -31,7 +27,7 @@ const BasketSection = () => {
   const [expiry, setExpiry] = useState('');
   const [cvv, setCvv] = useState('');
 
-  // Ödəniş modalını aç
+  // Modal funksiyaları
   const openPaymentModal = (item) => {
     setSelectedItem(item);
     setShowPaymentModal(true);
@@ -45,7 +41,6 @@ const BasketSection = () => {
     setCvv('');
   };
 
-  // Məhsul detallar modalını aç
   const openDetailsModal = (item) => {
     setDetailsItem(item);
     setShowDetailsModal(true);
@@ -84,48 +79,12 @@ const BasketSection = () => {
     <div className={style.container}>
       <div className={style.carts}>
         {basket.map((item) => (
-          <div className={style.cart} key={item._id}>
-            <div className={style.image}>
-              <img src={item.image} alt={item.title} />
-            </div>
-
-            <div className={style.info}>
-              <h3>{item.title}</h3>
-              <p>{item.price} ₼</p>
-            </div>
-
-            <div className={style.quantityControl}>
-              <button onClick={() => {
-                if (item.quantity > 1) {
-                  dispatch(updateQuantityThunk({ id: item._id, quantity: item.quantity - 1 }));
-                }
-              }}>–</button>
-
-              <span>{item.quantity || 1}</span>
-
-              <button onClick={() => {
-                dispatch(updateQuantityThunk({ id: item._id, quantity: (item.quantity || 1) + 1 }));
-              }}>+</button>
-            </div>
-
-            <div className={style.icon}>
-              <IoMdHeart onClick={() => dispatch(postWishlistThunk(item))} style={{ cursor: 'pointer' }} />
-
-              <HiMiniFolderArrowDown />
-              <RiDeleteBin5Fill
-                onClick={() => dispatch(deleteBasketThunk(item._id))}
-               className={style.delete}
-              />
-              <FaRegEye
-                onClick={() => openDetailsModal(item)}
-               
-              />
-            </div>
-
-            <button className={style.payButton} onClick={() => openPaymentModal(item)}>
-              Ödəniş et
-            </button>
-          </div>
+          <BasketCard
+            key={item._id}
+            item={item}
+            openDetailsModal={openDetailsModal}
+            openPaymentModal={openPaymentModal}
+          />
         ))}
       </div>
 
@@ -200,5 +159,6 @@ const BasketSection = () => {
 };
 
 export default BasketSection;
+
 
 

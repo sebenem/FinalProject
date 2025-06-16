@@ -44,11 +44,19 @@
         border-radius: 50px;
       }
       input {
-        width: 70%;
-        padding: 4px;
-        border: none;
-        background-color: transparent;
-      }
+    width: 70%;
+    padding: 4px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+
+    &:focus,
+    &:active {
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+  }
     }
   }
 }
