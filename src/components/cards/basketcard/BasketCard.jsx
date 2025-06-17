@@ -2,7 +2,6 @@ import React from 'react';
 import style from './BasketCard.module.scss';
 import { IoMdHeart } from "react-icons/io";
 import { FaRegEye } from "react-icons/fa";
-import { HiMiniFolderArrowDown } from "react-icons/hi2";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
 import { deleteBasketThunk, updateQuantityThunk } from '../../../redux/reducers/basketSlice';
@@ -38,7 +37,6 @@ const BasketCard = ({ item, openDetailsModal, openPaymentModal }) => {
 
       <div className={style.icon}>
         <IoMdHeart onClick={() => dispatch(postWishlistThunk(item))} style={{ cursor: 'pointer' }} />
-        <HiMiniFolderArrowDown />
         <RiDeleteBin5Fill
           onClick={() => dispatch(deleteBasketThunk(item._id))}
           className={style.delete}

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import style from "./ProductsSection.module.scss";
 import { IoMdHeart } from "react-icons/io";
 import { FaRegEye } from "react-icons/fa";
-import { HiMiniFolderArrowDown } from "react-icons/hi2";
 import { LuShoppingCart } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -99,7 +98,6 @@ const ProductsSection = () => {
 
               <div className={style.icon}>
                 <IoMdHeart onClick={() => handleAddWishlist(item)} />
-                <HiMiniFolderArrowDown />
                 <LuShoppingCart onClick={() => handleAddToBasket(item)} />
                 <FaRegEye onClick={() => handleViewDetails(item)} />
               </div>
