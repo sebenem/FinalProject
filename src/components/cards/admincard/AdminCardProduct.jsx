@@ -1,4 +1,3 @@
-// AdminCardProduct.js
 import React from 'react';
 import { FaEdit } from 'react-icons/fa';
 import style from './AdminCard.module.scss';

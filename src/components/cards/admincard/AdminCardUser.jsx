@@ -1,4 +1,3 @@
-// AdminCardUser.js
 import React from 'react';
 import style from './AdminCard.module.scss';
 

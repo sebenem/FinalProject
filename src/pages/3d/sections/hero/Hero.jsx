@@ -1,4 +1,4 @@
-// Hero.jsx
+
 import React, { useState, useEffect } from 'react';
 import style from './Hero.module.scss';
 import { FcSearch } from "react-icons/fc";
