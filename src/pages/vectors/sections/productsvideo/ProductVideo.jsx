@@ -59,17 +59,33 @@ const ProductVideo = () => {
     dispatch(postBasketThunk(item));
   };
 
-  const handleAddWishlist = (item) => {
-    if (!user || Object.keys(user).length === 0) {
-      localStorage.setItem(
-        "redirectAfterLogin",
-        JSON.stringify({ type: "wishlist", item })
-      );
-      navigate("/login", { state: { from: location.pathname } });
-      return;
-    }
-    dispatch(postWishlistThunk(item));
-  };
+ const wishlist = useSelector((state) => state.wishlist.wishlist); // wishlist array
+
+const handleAddWishlist = async (item) => {
+  if (!user || Object.keys(user).length === 0) {
+    localStorage.setItem(
+      "redirectAfterLogin",
+      JSON.stringify({ type: "wishlist", item })
+    );
+    navigate("/login", { state: { from: location.pathname } });
+    return;
+  }
+
+  const alreadyInWishlist = wishlist.some((w) => w._id === item._id);
+
+  if (alreadyInWishlist) {
+    alert("Bu məhsul artıq sevimlilərdə var.");
+    return;
+  }
+
+  try {
+    const res = await dispatch(postWishlistThunk(item)).unwrap();
+    alert(res.message || "Məhsul sevimlilərə əlavə olundu.");
+  } catch (error) {
+    alert(error || "Sevimlilərə əlavə edilərkən xəta baş verdi.");
+  }
+};
+
 
   const handleViewDetails = (item) => {
     setSelectedItem(item);

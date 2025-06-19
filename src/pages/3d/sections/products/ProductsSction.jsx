@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import style from "./ProductsSection.module.scss";
 import { IoMdHeart } from "react-icons/io";
@@ -27,10 +26,8 @@ const ProductsSection = () => {
   const loading = useSelector((state) => state.products.loading);
   const user = useSelector((state) => state.user.user);
 
-  // URL-dən query parametrini al
   const query = new URLSearchParams(location.search).get("query")?.toLowerCase() || "";
 
-  // 3D məhsulları süz və query-ə əsasən axtar
   const filteredProducts = products.filter((product) => {
     const is3D = product.category?.toLowerCase() === "3d";
     const matchesQuery =
@@ -52,7 +49,7 @@ const ProductsSection = () => {
     dispatch(postBasketThunk(item));
   };
 
-  const handleAddWishlist = (item) => {
+  const handleAddWishlist = async (item) => {
     if (!user) {
       localStorage.setItem(
         "redirectAfterLogin",
@@ -62,7 +59,12 @@ const ProductsSection = () => {
       return;
     }
 
-    dispatch(postWishlistThunk(item));
+    try {
+      const res = await dispatch(postWishlistThunk(item)).unwrap();
+      alert(res.message); // "Məhsul əlavə olundu"
+    } catch (error) {
+      alert(error); // "Bu məhsul artıq sevimlilərdədir"
+    }
   };
 
   const handleViewDetails = (item) => {
@@ -70,7 +72,7 @@ const ProductsSection = () => {
     setShowModal(true);
   };
 
-  if (error) return <h2>Xəta var</h2>;
+  if (error) return <h2>Xəta baş verdi</h2>;
   if (loading) return <h2>Yüklənir...</h2>;
 
   return (
@@ -100,7 +102,6 @@ const ProductsSection = () => {
         )}
       </div>
 
-      {/* Modal */}
       {showModal && selectedItem && (
         <div className={style.modalOverlay} onClick={() => setShowModal(false)}>
           <div className={style.modalContent} onClick={(e) => e.stopPropagation()}>
@@ -118,7 +119,4 @@ const ProductsSection = () => {
 };
 
 export default ProductsSection;
-
-
-
 

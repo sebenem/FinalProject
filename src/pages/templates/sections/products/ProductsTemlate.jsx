@@ -16,10 +16,13 @@ const ProductsTemlate = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const products = useSelector((state) => state.products.products);
-  const error = useSelector((state) => state.products.error);
-  const loading = useSelector((state) => state.products.loading);
-  const user = useSelector((state) => state.user.user);
+const products = useSelector((state) => state.products.products);
+const wishlist = useSelector((state) => state.wishlist.wishlist);
+const basket = useSelector((state) => state.basket.basket);
+const error = useSelector((state) => state.products.error);
+const loading = useSelector((state) => state.products.loading);
+const user = useSelector((state) => state.user.user);
+
 
   useEffect(() => {
     dispatch(getProductsThunk());
@@ -43,19 +46,27 @@ const ProductsTemlate = () => {
     }));
   };
 
-  const handleAddWishlist = (item) => {
-    if (!user) {
-      navigate('/login');
-      return;
-    }
+const handleAddWishlist = async (item) => {
+  if (!user) {
+    navigate('/login');
+    return;
+  }
 
-    dispatch(postWishlistThunk({
-      image: item.image,
-      title: item.title,
-      price: item.price,
-      category: item.category
-    }));
-  };
+  const alreadyInWishlist = wishlist.some((w) => w._id === item._id);
+
+  if (alreadyInWishlist) {
+    alert("Bu məhsul artıq sevimlilərdədir.");
+    return;
+  }
+
+  try {
+    const res = await dispatch(postWishlistThunk(item)).unwrap();
+    alert(res.message || "Məhsul sevimlilərə əlavə olundu.");
+  } catch (err) {
+    alert("Xəta baş verdi.");
+  }
+};
+
 
   const handleViewDetails = (item) => {
     setSelectedItem(item);
