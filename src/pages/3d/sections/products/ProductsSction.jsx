@@ -17,14 +17,14 @@ const ProductsSection = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    dispatch(getProductsThunk());
-  }, [dispatch]);
-
   const products = useSelector((state) => state.products.products);
   const error = useSelector((state) => state.products.error);
   const loading = useSelector((state) => state.products.loading);
   const user = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    dispatch(getProductsThunk());
+  }, [dispatch]);
 
   const query = new URLSearchParams(location.search).get("query")?.toLowerCase() || "";
 
@@ -61,9 +61,9 @@ const ProductsSection = () => {
 
     try {
       const res = await dispatch(postWishlistThunk(item)).unwrap();
-      alert(res.message); // "Məhsul əlavə olundu"
+      alert(res.message);
     } catch (error) {
-      alert(error); // "Bu məhsul artıq sevimlilərdədir"
+      alert(error);
     }
   };
 
@@ -119,4 +119,3 @@ const ProductsSection = () => {
 };
 
 export default ProductsSection;
-

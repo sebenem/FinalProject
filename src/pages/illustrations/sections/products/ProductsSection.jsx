@@ -18,7 +18,7 @@ const ProductsSection = () => {
   const error = useSelector((state) => state.products.error);
   const loading = useSelector((state) => state.products.loading);
   const user = useSelector((state) => state.user.user);
-
+const wishlist = useSelector((state) => state.wishlist.wishlist);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -60,18 +60,31 @@ const ProductsSection = () => {
     dispatch(postBasketThunk(item));
   };
 
-  const handleAddWishlist = (item) => {
-    if (!user || Object.keys(user).length === 0) {
-      localStorage.setItem(
-        "redirectAfterLogin",
-        JSON.stringify({ type: "wishlist", item })
-      );
-      navigate("/login", { state: { from: location.pathname } });
-      return;
-    }
+ const handleAddWishlist = async (item) => {
+  if (!user || Object.keys(user).length === 0) {
+    localStorage.setItem(
+      "redirectAfterLogin",
+      JSON.stringify({ type: "wishlist", item })
+    );
+    navigate("/login", { state: { from: location.pathname } });
+    return;
+  }
 
-    dispatch(postWishlistThunk(item));
-  };
+  const alreadyInWishlist = wishlist.some((w) => w._id === item._id);
+
+  if (alreadyInWishlist) {
+    alert("Bu məhsul artıq sevimlilərdə var.");
+    return;
+  }
+
+  try {
+    const res = await dispatch(postWishlistThunk(item)).unwrap();
+    alert(res.message || "Məhsul sevimlilərə əlavə olundu.");
+  } catch (error) {
+    alert(error || "Sevimlilərə əlavə edilərkən xəta baş verdi.");
+  }
+};
+
 
   const handleViewDetails = (item) => {
     setSelectedItem(item);

@@ -7,21 +7,29 @@ import { FaRegHeart } from "react-icons/fa6";
 import { SlBasketLoaded } from "react-icons/sl";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token); // token varsa true olacaq
-  }, []);
+  const user = useSelector((state) => state.user.user); // Redux-dan istifadə edirsənsə
+  const isLoggedIn = !!user;
 
   const toggleDrawer = () => {
     setIsOpen(prev => !prev);
   };
 
+  const handleNavigateWithAuth = (path, type) => {
+    if (!isLoggedIn) {
+      localStorage.setItem(
+        "redirectAfterLogin",
+        JSON.stringify({ type })
+      );
+      navigate("/login");
+    } else {
+      navigate(path);
+    }
+  };
 
   return (
     <div className={style.container}>
@@ -43,14 +51,14 @@ const Header = () => {
           </ul>
         </div>
 
-        {/* İkonlar (dəyişmir) */}
+        {/* İkonlar */}
         <div className={style.basket}>
-          <FaRegHeart onClick={() => navigate('/wishlist')} />
-          <SlBasketLoaded onClick={() => navigate('/basket')} />
-          <FaRegUserCircle onClick={() => navigate('/admin')} />
+          <FaRegHeart onClick={() => handleNavigateWithAuth('/wishlist', 'wishlist')} />
+          <SlBasketLoaded onClick={() => handleNavigateWithAuth('/basket', 'basket')} />
+          <FaRegUserCircle onClick={() => handleNavigateWithAuth('/admin', 'admin')} />
         </div>
 
-        {/* Login, Sign up və ya Profil düyməsi */}
+        {/* Login / Profil */}
         <div className={style.login}>
           {!isLoggedIn ? (
             <>
@@ -67,7 +75,7 @@ const Header = () => {
           <RxHamburgerMenu className={style.burger} />
         </div>
 
-        {/* Drawer menyu (istəyə bağlıdır) */}
+        {/* Drawer menyu */}
         <Drawer
           open={isOpen}
           onClose={toggleDrawer}
@@ -82,6 +90,7 @@ const Header = () => {
               <li><a href="/vectors">Vectors</a></li>
               <li><a href="/templates">Templates</a></li>
             </ul>
+
             {!isLoggedIn ? (
               <>
                 <button onClick={() => navigate('/login')}>Login</button>
