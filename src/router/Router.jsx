@@ -11,6 +11,7 @@ import Basket from "../pages/basket/Basket";
 import WishlistPages from "../pages/wishlistpages/WishlistPages";
 import Try from "../pages/triIt/Try";
 import Vectors from "../pages/vectors/Vectors";
+import Profil from "../pages/profil/Profil";
 
 const Router = () => {
   return (
@@ -27,6 +28,7 @@ const Router = () => {
         <Route path="/basket" element={<Basket />} />
           <Route path="/wishlist" element={<WishlistPages />} />
             <Route path="/try" element={<Try />} />
+            <Route path="/profil" element={<Profil/>}/>
       </Routes>
     </BrowserRouter>
   );

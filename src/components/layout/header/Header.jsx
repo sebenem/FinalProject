@@ -62,11 +62,11 @@ const Header = () => {
         <div className={style.login}>
           {!isLoggedIn ? (
             <>
-              <button onClick={() => navigate('/login')}>Login</button>
-              <button onClick={() => navigate('/signup')}>Sign up</button>
+              <button onClick={() => navigate('/login')}>Giriş</button>
+              <button onClick={() => navigate('/signup')}>Qeydiyyat</button>
             </>
           ) : (
-            <button onClick={() => navigate('/profile')}>Profil</button>
+            <button onClick={() => navigate('/profil')}>Profilə keç</button>
           )}
         </div>
 
@@ -97,7 +97,7 @@ const Header = () => {
                 <button onClick={() => navigate('/signup')}>Sign up</button>
               </>
             ) : (
-              <button onClick={() => navigate('/profile')}>Profil</button>
+              <button onClick={() => navigate('/profil')}>Profil</button>
             )}
           </div>
         </Drawer>

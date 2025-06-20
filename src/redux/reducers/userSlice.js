@@ -82,6 +82,36 @@ export const deleteUser = createAsyncThunk(
     }
   }
 );
+// update user info (profil redaktəsi)
+export const updateUserInfo = createAsyncThunk(
+  'user/updateUserInfo',
+  async ({ id, updatedData }, { rejectWithValue }) => {
+    try {
+      const res = await axios.put(`http://localhost:5008/api/users/update/${id}`, updatedData);
+      localStorage.setItem('user', JSON.stringify(res.data));
+      return res.data;
+    } catch (err) {
+      return rejectWithValue('Profil yenilənmədi');
+    }
+  }
+);
+
+// change password
+export const changePassword = createAsyncThunk(
+  'user/changePassword',
+  async ({ currentPassword, newPassword }, { rejectWithValue }) => {
+    try {
+      const res = await axios.put('http://localhost:5008/api/users/changepassword', {
+        currentPassword,
+        newPassword
+      });
+      return res.data.message;
+    } catch (err) {
+      return rejectWithValue('Parol dəyişdirilə bilmədi');
+    }
+  }
+);
+
 
 const userSlice = createSlice({
   name: 'user',
@@ -184,7 +214,20 @@ const userSlice = createSlice({
       .addCase(deleteUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      }).addCase(updateUserInfo.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(updateUserInfo.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+      
+      .addCase(changePassword.fulfilled, (state, action) => {
+        state.message = action.payload;
+      })
+      .addCase(changePassword.rejected, (state, action) => {
+        state.error = action.payload;
       });
+      
   }
 });
 

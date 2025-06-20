@@ -63,7 +63,7 @@ const SignUp = () => {
         <div className={style.batn}>
           <p>
             <a href="#" onClick={(e) => { e.preventDefault(); navigate('/login') }}>
-              Already have an account?
+             Artıq hesabınız var?
             </a>
           </p>
           <button onClick={handleRegister} disabled={loading}>

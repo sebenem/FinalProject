@@ -82,7 +82,7 @@ const Login = () => {
       <div className={style.login}>
         <h1>Sign in</h1>
         <p>
-          New user? <a href="#" onClick={e => { e.preventDefault(); navigate('/signup') }}>Create an account</a>
+         Hesabınız yoxdur?<a href="#" onClick={e => { e.preventDefault(); navigate('/signup') }}>Qeydiyyatdan keçin</a>
         </p>
         <form className={style.form} onSubmit={handleSubmit}>
           <input
@@ -104,7 +104,7 @@ const Login = () => {
           />
           <div className={style.batn}>
             <button type="submit" disabled={loading}>
-              {loading ? 'Loading...' : 'Continue'}
+              {loading ? 'Loading...' : 'Davam et'}
             </button>
           </div>
         </form>
