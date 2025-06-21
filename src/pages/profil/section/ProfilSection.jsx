@@ -71,6 +71,10 @@ const ProfilSection = () => {
 
   return (
     <div className={style.container}>
+    <div className={style.logo} onClick={() => navigate('/')}>
+          <h2>St</h2>
+          <h3>Adobe Stock</h3>
+        </div>
       <div className={style.top}>
         <h2><CgProfile /></h2>
         <button onClick={handleLogout}>Çıxış</button>
@@ -120,7 +124,7 @@ const ProfilSection = () => {
       )}
 
       <div className={style.section}>
-        <h3>Sevimlilər</h3>
+        <h3 onClick={() => navigate('/wishlist')}>Sevimlilər</h3>
         {wishlist.length > 0 ? (
           <ul>
             {wishlist.map((item) => (
@@ -133,7 +137,7 @@ const ProfilSection = () => {
       </div>
 
       <div className={style.section}>
-        <h3>Səbət</h3>
+        <h3 onClick={() => navigate('/basket')}>Səbət</h3>
         {basket.length > 0 ? (
           <ul>
             {basket.map((item) => (

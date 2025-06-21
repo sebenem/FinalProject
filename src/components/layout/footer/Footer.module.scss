@@ -1,215 +1,69 @@
-.container{
-    width: 100%;
-    min-height: 16vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.container {
+  background-color: #111;
+  color: #fff;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.adress,
+.adobe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adress ul,
+.adobe ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.adress a,
+.adobe a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.adress a:hover,
+.adobe a:hover {
+  color: #fff;
+}
+
+.adress li,
+.adobe li {
+  margin: 5px 10px;
+}
+
+.adobe p {
+  margin-bottom: 10px;
+  color: #888;
+  font-size: 13px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 20px 10px;
+  }
+
+  .adress ul,
+  .adobe ul {
     flex-direction: column;
-    gap: 1rem;
-    background-color: #222222;
-    .adress{
-        width: 70%;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        ul{
-            width: 90%;
-            list-style-type: none;
-            display: flex;
-            justify-content: space-evenly;
-             li,a{
-                font-size: 15px;
-                text-decoration: none;
-                color: gray;
-                svg{
-                    font-size: 19px;
-                }
-                 &:hover{
-                    color: red;
-                    
-                }
-            }
-        }
-    }
-    .adobe{
-        width: 70%;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        p{
-            font-size: 14px;
-            color: gray;
-        }
-         ul{
-            width: 80%;
-            list-style-type: none;
-            display: flex;
-            justify-content: space-evenly;
-            li,a{
-                font-size: 15px;
-                text-decoration: none;
-                color: gray;
-                &:hover{
-                    color: red;
-                }
-            }
-        }
-    }
-}
+    align-items: center;
+    gap: 8px;
+  }
 
-@media screen and (min-width: 300px) and (max-width: 576px) {
-  .container{
-    width: 100%;
-   height: auto;
-    .adress{
-        width: 80%;
-          margin-top: 1rem;
-        ul{
-            width: 90%;
-            flex-wrap: wrap;
-            gap: 8px;
-             li,a{
-                font-size: 14px;
-                svg{
-                    font-size: 19px;
-                }
-               
-            }
-        }
-    }
-   .adobe{
-        width: 80%;
-        margin-top: 1rem;
-        p{
-            font-size: 14px;
-        }
-         ul{
-            width: 90%;
-            flex-wrap: wrap;
-            gap: 8px;
-            li,a{
-                font-size: 14px;
-                
-            }
-        }
-    }
-}
-}
-
-@media screen and (min-width: 576px) and (max-width: 768px) {
-  .container{
-    width: 100%;
-   height: auto;
-    .adress{
-        width: 80%;
-          margin-top: 1rem;
-        ul{
-            width: 90%;
-            flex-wrap: wrap;
-            gap: 8px;
-             li,a{
-                font-size: 14px;
-                svg{
-                    font-size: 19px;
-                }
-               
-            }
-        }
-    }
-   .adobe{
-        width: 80%;
-        margin-top: 1rem;
-        p{
-            font-size: 14px;
-        }
-         ul{
-            width: 90%;
-            flex-wrap: wrap;
-            gap: 8px;
-            li,a{
-                font-size: 14px;
-                
-            }
-        }
-    }
-}
-}
-
-@media screen and (min-width: 768px) and (max-width: 992px) {
-  .container{
-    width: 100%;
-   height: auto;
-    .adress{
-        width: 80%;
-          margin-top: 1rem;
-        ul{
-            width: 90%;
-            flex-wrap: wrap;
-            gap: 8px;
-             li,a{
-                font-size: 14px;
-                svg{
-                    font-size: 19px;
-                }
-               
-            }
-        }
-    }
-   .adobe{
-        width: 80%;
-        margin-top: 1rem;
-        p{
-            font-size: 14px;
-        }
-         ul{
-            width: 90%;
-            flex-wrap: wrap;
-            gap: 8px;
-            li,a{
-                font-size: 14px;
-                
-            }
-        }
-    }
-}
-}
-
-
-@media screen and (min-width: 992px) and (max-width: 1024px) {
-  .container{
-    width: 100%;
-   height: auto;
-    .adress{
-        width: 80%;
-          margin-top: 1rem;
-        ul{
-            width: 90%;
-            flex-wrap: wrap;
-            gap: 8px;
-             li,a{
-                font-size: 14px;
-                svg{
-                    font-size: 19px;
-                }
-               
-            }
-        }
-    }
-   .adobe{
-        width: 80%;
-        margin-top: 1rem;
-        p{
-            font-size: 14px;
-        }
-         ul{
-            width: 90%;
-            flex-wrap: wrap;
-            gap: 8px;
-            li,a{
-                font-size: 14px;
-                
-            }
-        }
-    }
-}
+  .adobe p {
+    font-size: 12px;
+  }
 }
