@@ -3,3 +3,18 @@
   margin: 0;
   box-sizing: border-box;
 }
+body {
+  background-color: white;
+  color: black;
+  transition: all 0.3s ease;
+}
+
+body.dark {
+  background-color: #121212;
+  color: #1c0fd3;
+}
+
+body.dark .someClassName {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+}

@@ -8,23 +8,42 @@ import { SlBasketLoaded } from "react-icons/sl";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { MdNightlight } from "react-icons/md";
 
 const Header = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const user = useSelector((state) => state.user.user); // Redux-dan istifadə edirsənsə
+  const user = useSelector((state) => state.user.user);
   const isLoggedIn = !!user;
+
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem('darkMode') === 'true'
+  );
 
   const toggleDrawer = () => {
     setIsOpen(prev => !prev);
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(prev => {
+      const newMode = !prev;
+      localStorage.setItem('darkMode', newMode);
+      return newMode;
+    });
+  };
+
+  // Dark class-ını body-yə əlavə et və saxla
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [darkMode]);
+
   const handleNavigateWithAuth = (path, type) => {
     if (!isLoggedIn) {
-      localStorage.setItem(
-        "redirectAfterLogin",
-        JSON.stringify({ type })
-      );
+      localStorage.setItem("redirectAfterLogin", JSON.stringify({ type }));
       navigate("/login");
     } else {
       navigate(path);
@@ -34,13 +53,11 @@ const Header = () => {
   return (
     <div className={style.container}>
       <div className={style.conTop}>
-        {/* Logo */}
         <div className={style.logo} onClick={() => navigate('/')}>
           <h2>St</h2>
           <h3>Adobe Stock</h3>
         </div>
 
-        {/* Navbar */}
         <div className={style.navbar}>
           <ul>
             <li><a href="/">Home</a></li>
@@ -51,14 +68,13 @@ const Header = () => {
           </ul>
         </div>
 
-        {/* İkonlar */}
         <div className={style.basket}>
           <FaRegHeart onClick={() => handleNavigateWithAuth('/wishlist', 'wishlist')} />
           <SlBasketLoaded onClick={() => handleNavigateWithAuth('/basket', 'basket')} />
           <FaRegUserCircle onClick={() => handleNavigateWithAuth('/admin', 'admin')} />
+          <MdNightlight onClick={toggleDarkMode} style={{ cursor: 'pointer' }} />
         </div>
 
-        {/* Login / Profil */}
         <div className={style.login}>
           {!isLoggedIn ? (
             <>
@@ -70,12 +86,10 @@ const Header = () => {
           )}
         </div>
 
-        {/* Hamburger menyu */}
         <div className={style.menu} onClick={toggleDrawer}>
           <RxHamburgerMenu className={style.burger} />
         </div>
 
-        {/* Drawer menyu */}
         <Drawer
           open={isOpen}
           onClose={toggleDrawer}
@@ -107,3 +121,4 @@ const Header = () => {
 };
 
 export default Header;
+
