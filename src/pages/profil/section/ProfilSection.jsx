@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import style from './ProfilSection.module.scss';
+import { IoHome } from "react-icons/io5";
+
 import {
   getWishlistThunk
 } from '../../../redux/reducers/wishlistSlice';
@@ -71,14 +73,14 @@ const ProfilSection = () => {
 
   return (
     <div className={style.container}>
-    <div className={style.logo} onClick={() => navigate('/')}>
-          <h2>St</h2>
-          <h3>Adobe Stock</h3>
-        </div>
-      <div className={style.top}>
-        <h2><CgProfile /></h2>
-        <button onClick={handleLogout}>Çıxış</button>
-      </div>
+  <div className={style.home} onClick={() => navigate('/')}>
+    <IoHome />
+  </div>
+
+  <div className={style.top}>
+    <h2><CgProfile className={style.icon} /></h2>
+    <button onClick={handleLogout}>Çıxış</button>
+  </div>
 
       <div className={style.info}>
         <p><strong>Email:</strong> {user.email}</p>
