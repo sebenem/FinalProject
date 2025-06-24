@@ -271,6 +271,9 @@
 
       .basket {
         width: 20%;
+        .adminicon{
+  display: none;
+}
         img {
           width: 20px;
         }
@@ -309,13 +312,14 @@
         display: none;
       
     }
-    // .search{
-    //   display: none;
-    // }
+   
     .basket{
         width: 20%;
         display: flex;
         gap: 1rem;
+        .adminicon{
+  display: none;
+}
         img{
             width:20%;
         }
@@ -395,13 +399,14 @@
         display: none;
       
     }
-    // .search{
-    //   display: none;
-    // }
+  
       .basket{
         width: 20%;
         display: flex;
         gap: 1rem;
+        .adminicon{
+  display: none;
+}
         img{
             width:17%;
         }
@@ -479,13 +484,14 @@
         display: none;
       
     }
-    // .search{
-    //   display: none;
-    // }
+   
       .basket{
         width: 20%;
         display: flex;
         gap: 1rem;
+        .adminicon{
+  display: none;
+}
         img{
             width:15%;
         }
@@ -563,13 +569,13 @@
         display: none;
       
     }
-    // .search{
-    //   display: none;
-    // }
       .basket{
         width: 20%;
         display: flex;
         gap: 1rem;
+        .adminicon{
+  display: none;
+}
         img{
             width:12%;
         }

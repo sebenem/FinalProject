@@ -71,7 +71,7 @@ const Header = () => {
         <div className={style.basket}>
           <FaRegHeart onClick={() => handleNavigateWithAuth('/wishlist', 'wishlist')} />
           <SlBasketLoaded onClick={() => handleNavigateWithAuth('/basket', 'basket')} />
-          <FaRegUserCircle onClick={() => handleNavigateWithAuth('/admin', 'admin')} />
+          <FaRegUserCircle onClick={() => handleNavigateWithAuth('/admin', 'admin')} className={style.adminicon} />
           <MdNightlight onClick={toggleDarkMode} style={{ cursor: 'pointer' }} />
         </div>
 
