@@ -9,6 +9,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { MdNightlight } from "react-icons/md";
+import { TiDeleteOutline } from "react-icons/ti";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -91,30 +92,36 @@ const Header = () => {
         </div>
 
         <Drawer
-          open={isOpen}
-          onClose={toggleDrawer}
-          direction="right"
-          className={style.bala}
-        >
-          <div className={style.list}>
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/illustra">Illustrations</a></li>
-              <li><a href="/3d">3D</a></li>
-              <li><a href="/vectors">Vectors</a></li>
-              <li><a href="/templates">Templates</a></li>
-            </ul>
+  open={isOpen}
+  onClose={toggleDrawer}
+  direction="right"
+  className={style.bala}
+>
+  <div className={style.list}>
+    {/* Burada bağlamaq üçün düymə */}
+    <p onClick={toggleDrawer} style={{ marginBottom: '10px' }}>
+      Close
+    </p>
 
-            {!isLoggedIn ? (
-              <>
-                <button onClick={() => navigate('/login')}>Login</button>
-                <button onClick={() => navigate('/signup')}>Sign up</button>
-              </>
-            ) : (
-              <button onClick={() => navigate('/profil')}>Profil</button>
-            )}
-          </div>
-        </Drawer>
+    <ul>
+      <li><a href="/" onClick={toggleDrawer}>Home</a></li>
+      <li><a href="/illustra" onClick={toggleDrawer}>Illustrations</a></li>
+      <li><a href="/3d" onClick={toggleDrawer}>3D</a></li>
+      <li><a href="/vectors" onClick={toggleDrawer}>Vectors</a></li>
+      <li><a href="/templates" onClick={toggleDrawer}>Templates</a></li>
+    </ul>
+
+    {!isLoggedIn ? (
+      <>
+        <button onClick={() => { navigate('/login'); toggleDrawer(); }}>Login</button>
+        <button onClick={() => { navigate('/signup'); toggleDrawer(); }}>Sign up</button>
+      </>
+    ) : (
+      <button onClick={() => { navigate('/profil'); toggleDrawer(); }}>Profil</button>
+    )}
+  </div>
+</Drawer>
+
       </div>
     </div>
   );
