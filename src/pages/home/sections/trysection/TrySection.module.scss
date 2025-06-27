@@ -6,7 +6,6 @@
   justify-content: center;
   .con {
     width: 80%;
-    //   text-align: center;
 
     h1 {
       font-size: 30px;
@@ -65,7 +64,7 @@
         button {
           padding: 10px 20px;
           border: none;
-          background-color: #d61818;
+          background-color: #052659;
           color: white;
           border-radius: 8px;
           font-weight: bold;
@@ -73,7 +72,7 @@
           transition: background-color 0.3s;
 
           &:hover {
-            background-color: #7e0909;
+            background-color: #5483B3;
           }
         }
       }

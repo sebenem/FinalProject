@@ -47,11 +47,10 @@
         a {
           text-decoration: none;
           font-size: 17px;
-          color: gray;
+          color: #052659;
 
           &:hover {
-            color: rgb(68, 13, 194);
-            // text-decoration: underline 2px solid rgb(5, 5, 132);
+            color: #7d7d7d;
           }
         }
       }
@@ -108,7 +107,7 @@
 
    button {
   padding: 10px 24px;
-  background: linear-gradient(135deg, #6a11cb, #2575fc); // göy-bənövşəyi gradient
+  background: linear-gradient(135deg, #052659, #5483B3); // göy-bənövşəyi gradient
   border: none;
   border-radius: 30px;
   color: #fff;
@@ -128,7 +127,7 @@
     left: -100%;
     width: 200%;
     height: 100%;
-    background: linear-gradient(120deg, #42e695, #3bb2b8);
+    background: linear-gradient(120deg, #5483B3, #7DA0CA);
     transition: all 0.4s ease-in-out;
     z-index: -1;
     opacity: 0;
