@@ -12,6 +12,7 @@ import WishlistPages from "../pages/wishlistpages/WishlistPages";
 import Try from "../pages/triIt/Try";
 import Vectors from "../pages/vectors/Vectors";
 import Profil from "../pages/profil/Profil";
+import NotFound from "../pages/notfound/NotFound";
 
 const Router = () => {
   return (
@@ -29,6 +30,7 @@ const Router = () => {
           <Route path="/wishlist" element={<WishlistPages />} />
             <Route path="/try" element={<Try />} />
             <Route path="/profil" element={<Profil/>}/>
+               <Route path="*" element={<NotFound/>}/>
       </Routes>
     </BrowserRouter>
   );
